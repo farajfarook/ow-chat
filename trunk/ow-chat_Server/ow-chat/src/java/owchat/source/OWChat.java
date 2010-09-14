@@ -51,17 +51,15 @@ public class OWChat {
      */
     @WebMethod(operationName = "getAllUsers")      /////// Only for testing!!!
     public java.lang.String[] getAllUsers() {
-        //TODO write your implementation code here:
         return chatSystem.getAllUsers();
     }
 
     /**
      * Web service operation
      */
-    @WebMethod(operationName = "getAllFriends")      /////// Only for testing!!!
+    @WebMethod(operationName = "getAllFriends")
     public java.lang.String[] getAllFriends(@WebParam(name = "keyString")
-            String keyString) {
-        //TODO write your implementation code here:
+            String keyString) throws OWChatException {
         return chatSystem.getAllFriends(keyString);
     }
 

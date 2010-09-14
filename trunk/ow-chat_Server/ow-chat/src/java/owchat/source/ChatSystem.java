@@ -40,8 +40,10 @@ public class ChatSystem {
         return strs;
     }
 
-    public String[] getAllFriends(String keyString){
+    public String[] getAllFriends(String keyString) throws OWChatException{
         User user = getUserByKeyString(keyString);
+        if (user==null)
+            throw new OWChatException("Invalid user name");
         ArrayList<User> friends = user.getFriends();
         String[] strs = new String[friends.size()];
         for (int i= 0; i < strs.length; i++) {
