@@ -37,6 +37,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.bgwMessageListener = new System.ComponentModel.BackgroundWorker();
             this.menuStrip1.SuspendLayout();
             this.chatTabControl.SuspendLayout();
             this.SuspendLayout();
@@ -131,6 +132,7 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Timer timer1;
+        private System.ComponentModel.BackgroundWorker bgwMessageListener;
     }
 }
 
