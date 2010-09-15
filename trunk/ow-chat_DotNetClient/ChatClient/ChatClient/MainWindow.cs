@@ -17,14 +17,23 @@ namespace ChatClient
         //string[] users = { "Anya", "Madhu" };
         static public string Me = string.Empty;
         static public string Mess = string.Empty;
+
+        OWChatService.OWChatService chatService;      // ************
+
+        
+
+
         public Form1()
         {
             InitializeComponent();
+            chatService = new ChatClient.OWChatService.OWChatService(); //*****************
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             timer1.Enabled = true;
+            bool registerResult;
+            chatService.registerUser("Hero", "123",out registerResult,out registerResult);
         }
 
         private void userListView_SelectedIndexChanged(object sender, EventArgs e)
@@ -50,16 +59,12 @@ namespace ChatClient
 
         //        }
         //    }
-        }
+        
 
         private void signToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void userListView_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-    }
+     }
 }
