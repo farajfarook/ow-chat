@@ -11,25 +11,28 @@ using System.IO;
 
         // PLEASE USE DESCRIPTIVE NAMES FOR VARIABLES
 
-        /*     Things to do **********
-         *      1. Make a nice user interface
-         *      2. Create a new form for user login
-         *      3. in that form, when the user presses the login button
-         *          invoke the GlobalConfig.ChatServer.SignIn() method with 
-         *          proper parameters
-         *          If the return type is null,invalid password or username
-         *          If you sucessfully received a String, then assign it to GlobalConfig.SessionKey
-         *      4. Load the main window and dispose the login window
-         *      5. Get the friends list from the server and initialize friends[]
-         *      6. Display the list in the window
-         *      7. An array of Windwos references is created below
-         *      8. initialize it with the correct number of objects ( chatWindows = new Form[noOfFriends]; )
-         *      9. 
-         *      5. Important**
-         *          1. You have to add a background 
-         * 
-         * 
-         */
+/*     Things to do **********
+ *      1. Make a nice user interface
+ *      2. Create a new form for user login
+ *      3. in that form, when the user presses the login button
+ *          invoke the GlobalConfig.ChatServer.SignIn() method with 
+ *          proper parameters
+ *          If the return type is null,invalid password or username
+ *          If you sucessfully received a String, then assign it to GlobalConfig.SessionKey
+ *      4. Load the main window and dispose the login window
+ *      5. Get the friends list from the server and initialize friends[]
+ *      6. Display the list in the window
+ *      7. An array of Windwos references is created below. 
+ *          initialize it with the correct number of objects ( chatWindows = new Form[noOfFriends]; )
+ *      8. Important**
+ *          1. I've Added a background worker for you :P bgwMessageListener
+ *          2. Check its DoWork method
+ *          3. receiveMessage web method will return OWChatService.message[]
+ *          4. get them to an array and check the senders name
+ *          5.
+ *          
+ * 
+ */
 
 namespace ChatClient
 {
@@ -40,7 +43,7 @@ namespace ChatClient
         //string[] users = { "Anya", "Madhu" };
         static public string Me = string.Empty;
         static public string Mess = string.Empty;
-
+        
         // ****** want to access the web service? use GlobalConfig.ChatServer  ************
         // eg: registerUser function - GlobalConfig.ChatServer.registerUser();
 
@@ -49,8 +52,8 @@ namespace ChatClient
 
         public Form1()
         {
-            InitializeComponent();
-
+            InitializeComponent(); 
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
