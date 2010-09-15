@@ -16,7 +16,7 @@ namespace ChatClient
         {
             InitializeComponent();
         }
-        OWChatServiceReference chat = new OWChatServiceReference(new URL("http://localhost:8081/OwChat/OWChatService?wsdl"));
+        //OWChatService chat = new OWChatService(new URL("http://localhost:8081/OwChat/OWChatService?wsdl"));
         //ow-chat chat = new ow-chat();
         private string user;
         private Font font;
@@ -27,7 +27,7 @@ namespace ChatClient
             {
                 if (sendMsgRtb.Text.Trim().Length > 0 || sendMsgRtb.Rtf.Trim().Length > 130)
                 {
-                    chat.sendMessage(Form1.Me,sendMsgRtb.Rtf,user);
+                    //chat.sendMessage(Form1.Me,sendMsgRtb.Rtf,user);
                     messageRtb.SelectedText=Form1.Me+": ";
                     messageRtb.SelectedRtf=sendMsgRtb.Rtf;
                     messageRtb.ScrollToCaret();
@@ -35,7 +35,7 @@ namespace ChatClient
                     sendMsgRtb.Focus();
                 }
             }
-            catch(Exception e)
+            catch(Exception ex)
             {
                 MessageBox.Show("Server is down.Tty again");
             }
@@ -179,7 +179,7 @@ namespace ChatClient
                     }
                 }
         }
-            catch (Exception e)
+            catch (Exception exx)
             {
                 MessageBox.Show("Error in connecting to the chat server.");
             }
