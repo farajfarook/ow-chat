@@ -10,17 +10,14 @@
 <message name="sendMessageResponse">
 <part name="parameters" element="tns:sendMessageResponse" />
 </message>
-<message name="Exception">
-<part name="fault" element="tns:Exception" />
+<message name="OWChatException">
+<part name="fault" element="tns:OWChatException" />
 </message>
 <message name="registerUser">
 <part name="parameters" element="tns:registerUser" />
 </message>
 <message name="registerUserResponse">
 <part name="parameters" element="tns:registerUserResponse" />
-</message>
-<message name="OWChatException">
-<part name="fault" element="tns:OWChatException" />
 </message>
 <message name="signIn">
 <part name="parameters" element="tns:signIn" />
@@ -80,7 +77,7 @@
 <operation name="sendMessage">
 <input wsam:Action="http://source.owchat/OWChat/sendMessageRequest" message="tns:sendMessage" />
 <output wsam:Action="http://source.owchat/OWChat/sendMessageResponse" message="tns:sendMessageResponse" />
-<fault message="tns:Exception" name="Exception" wsam:Action="http://source.owchat/OWChat/sendMessage/Fault/Exception" />
+<fault message="tns:OWChatException" name="OWChatException" wsam:Action="http://source.owchat/OWChat/sendMessage/Fault/OWChatException" />
 </operation>
 <operation name="registerUser">
 <input wsam:Action="http://source.owchat/OWChat/registerUserRequest" message="tns:registerUser" />
@@ -99,6 +96,7 @@
 <operation name="getAllFriends">
 <input wsam:Action="http://source.owchat/OWChat/getAllFriendsRequest" message="tns:getAllFriends" />
 <output wsam:Action="http://source.owchat/OWChat/getAllFriendsResponse" message="tns:getAllFriendsResponse" />
+<fault message="tns:OWChatException" name="OWChatException" wsam:Action="http://source.owchat/OWChat/getAllFriends/Fault/OWChatException" />
 </operation>
 <operation name="resetChatServer">
 <input wsam:Action="http://source.owchat/OWChat/resetChatServerRequest" message="tns:resetChatServer" />
@@ -140,8 +138,8 @@
 <output>
 <soap:body use="literal" />
 </output>
-<fault name="Exception">
-<soap:fault name="Exception" use="literal" />
+<fault name="OWChatException">
+<soap:fault name="OWChatException" use="literal" />
 </fault>
 </operation>
 <operation name="registerUser">
@@ -185,6 +183,9 @@
 <output>
 <soap:body use="literal" />
 </output>
+<fault name="OWChatException">
+<soap:fault name="OWChatException" use="literal" />
+</fault>
 </operation>
 <operation name="resetChatServer">
 <soap:operation soapAction="" />
