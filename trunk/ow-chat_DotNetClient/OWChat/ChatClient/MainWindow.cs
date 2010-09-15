@@ -15,10 +15,11 @@ using System.IO;
  *      1. Make a nice user interface
  *      2. Create a new form for user login
  *      3. in that form, when the user presses the login button
- *          invoke the GlobalConfig.ChatServer.SignIn() method with 
+ *          invoke the GlobalConfig.ChatService.SignIn() method with 
  *          proper parameters
  *          If the return type is null,invalid password or username
  *          If you sucessfully received a String, then assign it to GlobalConfig.SessionKey
+ *          After the loging process, save the user ID in GlobalConfig.DisplayName
  *      4. Load the main window and dispose the login window
  *      5. Get the friends list from the server and initialize friends[]
  *      6. Display the list in the window
@@ -28,9 +29,15 @@ using System.IO;
  *          1. I've Added a background worker for you :P bgwMessageListener
  *          2. Check its DoWork method
  *          3. receiveMessage web method will return OWChatService.message[]
- *          4. get them to an array and check the senders name
- *          5.
- *          
+ *          4. get them to an array and check the senders name (you may get more than one message,dats why)
+ *          5. Each MessageWindow contains a function called ReceiveMessage(String message)
+ *          6. Now you have a list of friends, and a list of chat windows.
+ *          7. get the offest of friends array by the sender name of the received message
+ *          8. check whether chatWindows[obtained offest] is null or not
+ *          9. If it is null, create a MessageWindow object and assing to it
+ *          10. make that window visible
+ *          11. call that window's receiveMessage function and send the message you got
+ *          12. If that perticular MessageWindow is not null, just call the receiveMessage function
  * 
  */
 
