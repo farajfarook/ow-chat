@@ -1,0 +1,13 @@
+D:\SLIIT\2nd Semester\EAD\Assignment3\ChatClient\ChatClient\bin\Debug\ChatClient.exe
+D:\SLIIT\2nd Semester\EAD\Assignment3\ChatClient\ChatClient\bin\Debug\ChatClient.pdb
+D:\SLIIT\2nd Semester\EAD\Assignment3\ChatClient\ChatClient\obj\Debug\ResolveAssemblyReference.cache
+D:\SLIIT\2nd Semester\EAD\Assignment3\ChatClient\ChatClient\obj\Debug\ChatClient.Form1.resources
+D:\SLIIT\2nd Semester\EAD\Assignment3\ChatClient\ChatClient\obj\Debug\ChatClient.Properties.Resources.resources
+D:\SLIIT\2nd Semester\EAD\Assignment3\ChatClient\ChatClient\obj\Debug\ChatClient.csproj.GenerateResource.Cache
+D:\SLIIT\2nd Semester\EAD\Assignment3\ChatClient\ChatClient\obj\Debug\ChatClient.exe
+D:\SLIIT\2nd Semester\EAD\Assignment3\ChatClient\ChatClient\obj\Debug\ChatClient.pdb
+D:\SLIIT\2nd Semester\EAD\Assignment3\ChatClient\ChatClient\obj\Debug\ChatClient.MessageFrm.resources
+D:\SLIIT\2nd Semester\EAD\Assignment3\ChatClient\ChatClient\obj\Debug\ChatClient.signInFrm.resources
+F:\ChatClient\ChatClient\obj\Debug\ChatClient.exe
+F:\ChatClient\ChatClient\obj\Debug\ChatClient.pdb
+F:\ChatClient\ChatClient\bin\Debug\ChatClient.exe.config
