@@ -10,6 +10,13 @@ namespace ChatClient
         //Name of the current user of the chat client
         private static String displayName;
         private static OWChatService.OWChatService chatService;
+        private static String sessionKey;
+
+        public static String SessionKey
+        {
+            get { return GlobalConfig.sessionKey; }
+            set { GlobalConfig.sessionKey = value; }
+        }
 
         public static OWChatService.OWChatService ChatService
         {
