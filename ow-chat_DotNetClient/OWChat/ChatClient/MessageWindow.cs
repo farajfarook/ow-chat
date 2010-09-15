@@ -14,7 +14,9 @@ namespace ChatClient
     {
 
         private String sFriendName;     // name of the friend
-        private OWChatService.OWChatService chatService;    // reference to the web service
+        
+        //** chat service reference is  at GlobalConfig.ChatService 
+        // eg: to call sendMessage method use GlobalConfig.ChatService.sendMessage()
 
         private Font selectedFont;
              
@@ -24,7 +26,7 @@ namespace ChatClient
         public MessageFrm(String friendName)
         {
             InitializeComponent();
-
+            
             this.sFriendName = friendName;
         }
 
