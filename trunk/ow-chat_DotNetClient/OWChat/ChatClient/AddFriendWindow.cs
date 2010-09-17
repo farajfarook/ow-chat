@@ -52,7 +52,7 @@ namespace ChatClient
                     if (result)
                     {
                         MessageBox.Show("Ow-chat user " + tbFriendName.Text + " added as a friend of you.", "ow-chat");
-                        GlobalConfig.mainWindow.userLoggedIn();
+                        GlobalConfig.mainWindow.loadFriendsList();
                         this.Dispose();
                     }
                     else
