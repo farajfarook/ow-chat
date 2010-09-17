@@ -80,7 +80,7 @@ namespace ChatClient
             foreach (String name in this.friends)
             {
                 lvFriends.Items.Add(name);
-                lvFriends.Items[lvFriends.Items.Count - 1].ImageIndex = 0;
+                lvFriends.Items[lvFriends.Items.Count - 1].ImageIndex = 3;
             }
 
             chatWindows = new frmMessageWindow[friends.Length];
