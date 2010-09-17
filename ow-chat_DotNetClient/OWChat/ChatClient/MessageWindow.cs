@@ -192,9 +192,9 @@ namespace ChatClient
         {
         try
             {
-                if (Form1.Mess.Trim().Length > 0)
+                if (frmMainWindow.Mess.Trim().Length > 0)
                 {
-                    string[] strU = Form1.Mess.Split(':');
+                    string[] strU = frmMainWindow.Mess.Split(':');
                     string strM = string.Empty;
                     if (strU[0] == sFriendName)
                     {
@@ -204,7 +204,7 @@ namespace ChatClient
                         }
                         messageRtb.SelectedText = strU[0] + ": ";
                         messageRtb.SelectedRtf = strM;
-                        Form1.Mess = "";
+                        frmMainWindow.Mess = "";
                         messageRtb.ScrollToCaret();
                         
                     }
