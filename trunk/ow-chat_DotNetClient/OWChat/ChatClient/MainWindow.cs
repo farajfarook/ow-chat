@@ -43,7 +43,7 @@ using System.IO;
 
 namespace ChatClient
 {
-    public partial class Form1 : Form
+    public partial class frmMainWindow : Form
     {
         //string line;
         ////get the current user list
@@ -57,7 +57,7 @@ namespace ChatClient
         private Form[] chatWindows;
         private String[] friends;
 
-        public Form1()
+        public frmMainWindow()
         {
             InitializeComponent(); 
             
