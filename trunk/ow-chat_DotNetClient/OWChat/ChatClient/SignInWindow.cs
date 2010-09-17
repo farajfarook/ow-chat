@@ -71,6 +71,7 @@ namespace ChatClient
                     tbUserID.Focus();
                     this.Text = "OW-Chat";
                     this.Enabled = true;
+                    throw;
                 }
 
             }
