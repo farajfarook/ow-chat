@@ -31,8 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(signInFrm));
             this.userIdLbl = new System.Windows.Forms.Label();
             this.passwordLbl = new System.Windows.Forms.Label();
-            this.userIdTxt = new System.Windows.Forms.TextBox();
-            this.passwordTxt = new System.Windows.Forms.TextBox();
+            this.tbUserID = new System.Windows.Forms.TextBox();
+            this.tbPassword = new System.Windows.Forms.TextBox();
             this.signInBtn = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -64,19 +64,19 @@
             this.passwordLbl.TabIndex = 1;
             this.passwordLbl.Text = "Password";
             // 
-            // userIdTxt
+            // tbUserID
             // 
-            this.userIdTxt.Location = new System.Drawing.Point(194, 74);
-            this.userIdTxt.Name = "userIdTxt";
-            this.userIdTxt.Size = new System.Drawing.Size(100, 20);
-            this.userIdTxt.TabIndex = 2;
+            this.tbUserID.Location = new System.Drawing.Point(194, 74);
+            this.tbUserID.Name = "tbUserID";
+            this.tbUserID.Size = new System.Drawing.Size(100, 20);
+            this.tbUserID.TabIndex = 2;
             // 
-            // passwordTxt
+            // tbPassword
             // 
-            this.passwordTxt.Location = new System.Drawing.Point(194, 111);
-            this.passwordTxt.Name = "passwordTxt";
-            this.passwordTxt.Size = new System.Drawing.Size(100, 20);
-            this.passwordTxt.TabIndex = 3;
+            this.tbPassword.Location = new System.Drawing.Point(194, 111);
+            this.tbPassword.Name = "tbPassword";
+            this.tbPassword.Size = new System.Drawing.Size(100, 20);
+            this.tbPassword.TabIndex = 3;
             // 
             // signInBtn
             // 
@@ -143,8 +143,8 @@
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.signInBtn);
-            this.Controls.Add(this.passwordTxt);
-            this.Controls.Add(this.userIdTxt);
+            this.Controls.Add(this.tbPassword);
+            this.Controls.Add(this.tbUserID);
             this.Controls.Add(this.passwordLbl);
             this.Controls.Add(this.userIdLbl);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -165,8 +165,8 @@
 
         private System.Windows.Forms.Label userIdLbl;
         private System.Windows.Forms.Label passwordLbl;
-        private System.Windows.Forms.TextBox userIdTxt;
-        private System.Windows.Forms.TextBox passwordTxt;
+        private System.Windows.Forms.TextBox tbUserID;
+        private System.Windows.Forms.TextBox tbPassword;
         private System.Windows.Forms.Button signInBtn;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.PictureBox pictureBox1;
