@@ -68,6 +68,7 @@
             this.imageListSmall.Images.SetKeyName(0, "1.gif");
             this.imageListSmall.Images.SetKeyName(1, "Add-icon.png");
             this.imageListSmall.Images.SetKeyName(2, "out.JPG");
+            this.imageListSmall.Images.SetKeyName(3, "buddy.JPG");
             // 
             // timer1
             // 
@@ -117,7 +118,7 @@
             // signOutToolStripMenuItem
             // 
             this.signOutToolStripMenuItem.Name = "signOutToolStripMenuItem";
-            this.signOutToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.signOutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.signOutToolStripMenuItem.Text = "&Sign out";
             this.signOutToolStripMenuItem.Click += new System.EventHandler(this.signOutToolStripMenuItem_Click);
             // 
@@ -132,7 +133,7 @@
             // addFriendToolStripMenuItem
             // 
             this.addFriendToolStripMenuItem.Name = "addFriendToolStripMenuItem";
-            this.addFriendToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.addFriendToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.addFriendToolStripMenuItem.Text = "Add Friend";
             this.addFriendToolStripMenuItem.Click += new System.EventHandler(this.addFriendToolStripMenuItem_Click);
             // 
