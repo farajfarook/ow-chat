@@ -8,7 +8,6 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -48,11 +47,10 @@ public class UserManager {
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            User user = (User)session.load(User.class, userName);
+            List<User> userList = session.createQuery("select u from User as u where u.userName='"+userName+"'").list();
             tx.commit();
-            String uname = user.getUserName();
-            if(uname!="")
-                return user;
+            if(userList.size()>0)
+                return userList.get(0);
             else
                 return null;
         } catch (RuntimeException exception) {
@@ -131,7 +129,7 @@ public class UserManager {
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            int count = session.createQuery("select u from userdata as u").list().size();
+            int count = session.createQuery("select u from User as u").list().size();
             tx.commit();
             return count;
         } catch (RuntimeException exception) {
@@ -152,7 +150,7 @@ public class UserManager {
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            List userList = session.createQuery("select u from userdata as u").list();
+            List userList = session.createQuery("select u from User as u").list();
             tx.commit();
             return toUserArray(userList);
         } catch (RuntimeException exception) {
@@ -173,7 +171,7 @@ public class UserManager {
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            List userList = session.createQuery("select u from userdata as u where u.username like '%"+searchContent+"%'").list();
+            List userList = session.createQuery("select u from User as u where u.userName like '%"+searchContent+"%'").list();
             tx.commit();
             return toUserArray(userList);
         } catch (RuntimeException exception) {
