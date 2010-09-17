@@ -169,6 +169,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "OW-Chat";
             this.Load += new System.EventHandler(this.signInFrm_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmSignInWindow_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);

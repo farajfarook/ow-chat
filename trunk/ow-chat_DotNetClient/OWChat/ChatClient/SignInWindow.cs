@@ -25,8 +25,8 @@ namespace ChatClient
 
         private void signInBtn_Click(object sender, EventArgs e)
         {
-            String userId = tbUserID.Text;
-            String password = tbPassword.Text;
+            String userId = tbUserID.Text.ToLower();
+            String password = tbPassword.Text.ToLower();
             if (tbUserID.Text.Trim() == "" || tbPassword.Text.Trim() == "")
             {
                 MessageBox.Show("Please enter your user id and the password", "Sign In Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -56,6 +56,7 @@ namespace ChatClient
                     {
                         GlobalConfig.SessionKey = sessionKey;
                         GlobalConfig.DisplayName = tbUserID.Text;
+                        GlobalConfig.UserSignedIn = true;
                         GlobalConfig.mainWindow.Enabled = true;
                         GlobalConfig.mainWindow.loadFriendsList();
                         this.Dispose();
@@ -110,7 +111,14 @@ namespace ChatClient
 
         }
 
+        private void frmSignInWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!GlobalConfig.UserSignedIn)
+            {
+                Application.Exit();
+            }
 
-        
+        }
+               
     }
 }
