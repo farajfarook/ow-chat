@@ -59,6 +59,7 @@
             this.lvFriends.UseCompatibleStateImageBehavior = false;
             this.lvFriends.View = System.Windows.Forms.View.List;
             this.lvFriends.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvFriends_MouseDoubleClick);
+            this.lvFriends.SelectedIndexChanged += new System.EventHandler(this.lvFriends_SelectedIndexChanged);
             // 
             // imageListSmall
             // 
