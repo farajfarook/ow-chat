@@ -73,6 +73,7 @@
             this.lbUsers.Name = "lbUsers";
             this.lbUsers.Size = new System.Drawing.Size(260, 121);
             this.lbUsers.TabIndex = 11;
+            this.lbUsers.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lbUsers_MouseDown);
             // 
             // btnSearch
             // 
