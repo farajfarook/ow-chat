@@ -44,7 +44,7 @@ namespace ChatClient
             bool result,gotRes;
             try
             {
-                GlobalConfig.ChatService.registerUser(tbUserName.Text, tbConfPassword.Text, out result, out gotRes);
+                GlobalConfig.ChatService.registerUser(tbUserName.Text.ToLower(), tbConfPassword.Text.ToLower(), out result, out gotRes);
                 //MessageBox.Show("@Return : " + result);
                 //MessageBox.Show("GotRes : " + gotRes);
                 if (!result)
@@ -57,7 +57,7 @@ namespace ChatClient
                 }
                 else
                 {
-                    String key = GlobalConfig.ChatService.signIn(tbUserName.Text, tbConfPassword.Text);
+                    String key = GlobalConfig.ChatService.signIn(tbUserName.Text.ToLower(), tbConfPassword.Text.ToLower());
                     if (key == null)
                     {
                         MessageBox.Show("Failed to SignIn. Please Try again");
@@ -68,6 +68,7 @@ namespace ChatClient
                     {
                         GlobalConfig.SessionKey = key;
                         GlobalConfig.DisplayName = tbUserName.Text;
+                        GlobalConfig.UserSignedIn = true;
                         GlobalConfig.mainWindow.Enabled = true;
                         GlobalConfig.mainWindow.Focus();
                         this.Dispose();
