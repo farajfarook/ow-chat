@@ -10,16 +10,16 @@ using System.IO;
 
 namespace ChatClient
 {
-    public partial class signInFrm : Form
+    public partial class frmSignInWindow : Form
     {
-        public signInFrm()
+        public frmSignInWindow()
         {
             InitializeComponent();
         }
 
         private void signInFrm_Load(object sender, EventArgs e)
         {
-
+            new frmMessageWindow("temp").Show();      // for testing
         }
 
         private void signInBtn_Click(object sender, EventArgs e)
