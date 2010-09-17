@@ -29,6 +29,13 @@ namespace ChatClient
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            if (tbFriendName.Text.TrimEnd().ToLower() == GlobalConfig.DisplayName.ToLower())
+            {
+                MessageBox.Show("You cannot add your self as a friend.");
+                tbFriendName.SelectAll();
+                return;
+            }
+
             if (tbFriendName.Text.Trim() == "")
             {
                 MessageBox.Show("Please enter your friends name.", "ow-chat", MessageBoxButtons.OK);
