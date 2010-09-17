@@ -24,27 +24,45 @@ namespace ChatClient
 
         private void signInBtn_Click(object sender, EventArgs e)
         {
-            String userId = "";
-            String password = "";
-            if (userIdTxt.Text == "" || passwordTxt.Text == "")
+            String userId = tbUserID.Text;
+            String password = tbPassword.Text;
+            if (tbUserID.Text.Trim() == "" || tbPassword.Text.Trim() == "")
             {
                 MessageBox.Show("Please enter your user id and the password", "Sign In Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
             else {
-                userId = userIdTxt.Text;
-                password = passwordTxt.Text;
-                //connect to the server and varify the userid and the password
-                //if correct go to the main window
-                Form1 child = new Form1(); //create new isntance of form
-                child.FormClosed += new FormClosedEventHandler(child_FormClosed); //add handler to catch when child form is closed
-                child.Show(); //show child
-                this.Hide(); //hide parent
+                //Form1 child = new Form1(); //create new isntance of form
+                //child.FormClosed += new FormClosedEventHandler(child_FormClosed); //add handler to catch when child form is closed
+                //child.Show(); //show child
+                //this.Hide(); //hide parent
+                String sessionKey = "";
+                try
+                {
+                    sessionKey = GlobalConfig.ChatService.signIn(userId, password);
+                    if (sessionKey == null)
+                    {
+                        MessageBox.Show("Incorrect UserID or Password", "Ow-chat", MessageBoxButtons.OK);
+                        tbUserID.Text = "";
+                        tbPassword.Text = "";
+                        tbUserID.Focus();
+                    }
+                    else
+                    {
+                        GlobalConfig.SessionKey = sessionKey;
+                        new Form1().Show();
+                        this.Dispose();
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Sign In Error : " + ex.StackTrace);
+                }
+
             }
         }
-        void child_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            this.Close();
-        }
+
+        
     }
 }
