@@ -69,6 +69,7 @@
             this.imageListSmall.Images.SetKeyName(1, "Add-icon.png");
             this.imageListSmall.Images.SetKeyName(2, "out.JPG");
             this.imageListSmall.Images.SetKeyName(3, "buddy.JPG");
+            this.imageListSmall.Images.SetKeyName(4, "buddy_offline.jpg");
             // 
             // timer1
             // 
