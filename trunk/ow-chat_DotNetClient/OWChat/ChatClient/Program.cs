@@ -22,7 +22,8 @@ namespace ChatClient
             
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmSignInWindow());
+            GlobalConfig.mainWindow = new frmMainWindow();
+            Application.Run(GlobalConfig.mainWindow);
             //Application.Run(new signInFrm());
         }
     }
