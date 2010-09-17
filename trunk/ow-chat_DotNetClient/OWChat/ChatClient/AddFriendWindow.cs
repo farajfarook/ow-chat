@@ -18,8 +18,27 @@ namespace ChatClient
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            this.Height = 310;
-            MessageBox.Show("User searching not yet implemented");
+            if (tbFriendName.Text.Trim() == "")
+                return;
+            if (tbFriendName.Text.TrimEnd().ToLower() == GlobalConfig.DisplayName.ToLower())
+                return;
+            this.Height = 340;
+            btnCancel.Location = new Point(200, 276);
+            btnAdd.Location = new Point(119, 276);
+            btnSearch.Location = new Point(200, 52);
+            try
+            {
+                String[] users = GlobalConfig.ChatService.searchUser(tbFriendName.Text);
+                foreach (String name in users)
+                {
+                    lbUsers.Items.Add(name);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Search Error : " + ex.Message,"ow-chat",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                this.Dispose();
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -31,14 +50,14 @@ namespace ChatClient
         {
             if (tbFriendName.Text.TrimEnd().ToLower() == GlobalConfig.DisplayName.ToLower())
             {
-                MessageBox.Show("You cannot add your self as a friend.");
+                MessageBox.Show("You cannot add your self as a friend.","ow-chat", MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
                 tbFriendName.SelectAll();
                 return;
             }
 
             if (tbFriendName.Text.Trim() == "")
             {
-                MessageBox.Show("Please enter your friends name.", "ow-chat", MessageBoxButtons.OK);
+                MessageBox.Show("Please enter your friends name.", "ow-chat", MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
                 tbFriendName.Focus();
             }
             else
@@ -57,20 +76,25 @@ namespace ChatClient
                     }
                     else
                     {
-                        MessageBox.Show("Error adding friend. please try again.", "ow-chat");
+                        MessageBox.Show("Error adding friend. please try again.", "ow-chat",MessageBoxButtons.OK,MessageBoxIcon.Error);
                         this.Dispose();
                     }
 
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Add Friend Error : "  + ex.Message, "ow-chat");
+                    MessageBox.Show("Add Friend Error : " + ex.Message, "ow-chat",MessageBoxButtons.OK,MessageBoxIcon.Error);
                     this.Dispose();
                 }
                 
 
 
             }
+        }
+
+        private void lbUsers_MouseDown(object sender, MouseEventArgs e)
+        {
+            tbFriendName.Text = lbUsers.Items[lbUsers.SelectedIndex].ToString();
         }
     }
 }
