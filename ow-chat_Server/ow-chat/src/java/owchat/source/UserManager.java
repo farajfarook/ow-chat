@@ -6,6 +6,7 @@
 package owchat.source;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  *
@@ -120,13 +121,7 @@ public class UserManager
 
     public static User[] GetUsers()
     {
-        Object[] userobjs = users.toArray();
-        User[] userArr = new User[userobjs.length];
-        for (int i = 0; i < userobjs.length; i++) {
-            Object object = userobjs[i];
-            userArr[i] = (User) object;
-        }
-        return userArr;
+        return toUserArray(users);
 //        Session session = OwChatpersistantUtil.getSessionFactory().getCurrentSession();
 //        try
 //        {
@@ -151,4 +146,25 @@ public class UserManager
         return users.get(index);
     }
 
+    public static User[] Search(String searchContent)
+    {
+        ArrayList<User> matchedUsers = new ArrayList<User>();
+        for (Iterator<User> it = users.iterator(); it.hasNext();) {
+            User user = it.next();
+            if(user.getUserName().indexOf(searchContent)>0)
+                matchedUsers.add(user);
+        }
+        return toUserArray(matchedUsers);
+    }
+
+    private static User[] toUserArray(ArrayList<User> usersList)
+    {
+        Object[] userobjs = usersList.toArray();
+        User[] userArr = new User[userobjs.length];
+        for (int i = 0; i < userobjs.length; i++) {
+            Object object = userobjs[i];
+            userArr[i] = (User) object;
+        }
+        return userArr;
+    }
 }

@@ -8,6 +8,7 @@ package owchat.source;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
+import org.hibernate.sql.Template;
 
 
 
@@ -127,6 +128,16 @@ public class OWChat {
     String friendName, @WebParam(name = "keyString")
     String keyString) throws OWChatException {
         return chatSystem.removeFriend(friendName, keyString);
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "searchUser")
+    public java.lang.String[] searchUser(@WebParam(name = "searchContent")
+    String searchContent) throws OWChatException {
+        //TODO write your implementation code here:
+        return chatSystem.searchUser(searchContent);
     }
 
 
