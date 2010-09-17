@@ -63,6 +63,14 @@ namespace ChatClient
             }
         }
 
+        private void btnSignUp_Click(object sender, EventArgs e)
+        {
+            frmSignUpWindow signUp = new frmSignUpWindow();
+            signUp.Show();
+            this.Hide();
+        }
+
+
         
     }
 }
