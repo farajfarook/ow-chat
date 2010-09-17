@@ -66,13 +66,11 @@ namespace ChatClient
         private void Form1_Load(object sender, EventArgs e)
         {
 
-            GlobalConfig.DisplayName = "CurrentUser";  //****** once the user logged in, assign his name to DisplayName
+            //GlobalConfig.DisplayName = "CurrentUser";  //****** once the user logged in, assign his name to DisplayName
 
             timer1.Enabled = true;
             bool registerResult;
             //chatService.registerUser("Hero", "123",out registerResult,out registerResult);
-            frmMessageWindow msg = new frmMessageWindow("Her");
-            msg.Show();
         }
 
         private void userListView_SelectedIndexChanged(object sender, EventArgs e)

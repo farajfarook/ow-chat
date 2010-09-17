@@ -20,6 +20,8 @@ namespace ChatClient
         private void signInFrm_Load(object sender, EventArgs e)
         {
             new frmMessageWindow("temp").Show();      // for testing
+            bool val;
+            //GlobalConfig.ChatService.resetChatServer(out val, out val);
         }
 
         private void signInBtn_Click(object sender, EventArgs e)
@@ -50,6 +52,7 @@ namespace ChatClient
                     else
                     {
                         GlobalConfig.SessionKey = sessionKey;
+                        GlobalConfig.DisplayName = tbUserID.Text;
                         new frmMainWindow().Show();
                         this.Dispose();
                     }
@@ -57,7 +60,7 @@ namespace ChatClient
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Sign In Error : " + ex.StackTrace);
+                    MessageBox.Show("Sign In Error : " + ex.Message);
                 }
 
             }
