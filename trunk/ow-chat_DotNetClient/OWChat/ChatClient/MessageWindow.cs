@@ -19,7 +19,7 @@ namespace ChatClient
         // eg: to call sendMessage method use GlobalConfig.ChatService.sendMessage()
 
         private Font selectedFont;
-             
+        public bool frn, msg;    
         // Constructor is modified******
         // When creating an instance from this class, it is a must to give a name of the person
         // at the other end
@@ -37,7 +37,9 @@ namespace ChatClient
             {
                 if (sendMsgRtb.Text.Trim().Length > 0 || sendMsgRtb.Rtf.Trim().Length > 130)
                 {
+                   
                     //chat.sendMessage(Form1.Me,sendMsgRtb.Rtf,user);
+                    //GlobalConfig.ChatService.sendMessage(sFriendName, sendMsgRtb.Rtf,Form1.Me, out frn, out msg);
                     messageRtb.SelectedText= GlobalConfig.DisplayName +": ";  //Set DisplayName in the main window
                     messageRtb.SelectedRtf=sendMsgRtb.Rtf;
                     messageRtb.ScrollToCaret();
@@ -180,6 +182,8 @@ namespace ChatClient
         {
             //you got a chat message from the other end..
             //display it in the window as appropriate
+           
+            
         }
 
                
@@ -218,10 +222,7 @@ namespace ChatClient
 
         }
 
-        private void sendMsgRtb_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+        
 
         private void sendMsgRtb_KeyDown(object sender, KeyEventArgs e)
         {
@@ -232,11 +233,53 @@ namespace ChatClient
 
         }
 
-        
+        private void messageRtb_TextChanged(object sender, EventArgs e)
+        {
+           // messageRtb.Rtf = GlobalConfig.RecieveMsg();
+        }
 
         
+       
 
-        
+        private void Imvironment_Click(object sender, EventArgs e)
+        {
+
+               
+      OpenFileDialog dlg = new OpenFileDialog();
+  
+      dlg.Title = "Open bitmap or jpeg.";
+  
+      //dlg.Filter = "jpg files (*.jpg);*.jpg;*.* | bmp files (*.bmp); *.bmp";
+ 
+       
+ 
+      if (dlg.ShowDialog() == DialogResult.OK)
+
+      {
+   
+      this.pictureBox1.Image= new Bitmap(dlg.OpenFile());
+
+      }
+ 
+      dlg.Dispose();
+
+            
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
+                System.Console.Beep();
+
+                messageRtb.SelectionFont = new Font("Verdana", 12, FontStyle.Bold);
+                messageRtb.SelectionColor = Color.Red;
+                messageRtb.SelectedText = "BEEP!!!" + Environment.NewLine;
+                messageRtb.SelectionFont = new Font("Microsoft Sans Serif", 8, FontStyle.Regular);
+                messageRtb.SelectionColor = Color.Black;
+                //messageRtb.ForeColor = System.Drawing.Color.Red;
+                //messageRtb.Font.Size=16;
+            
+          }
 
             
     }
