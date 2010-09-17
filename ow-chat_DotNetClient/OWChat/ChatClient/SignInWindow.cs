@@ -50,7 +50,7 @@ namespace ChatClient
                     else
                     {
                         GlobalConfig.SessionKey = sessionKey;
-                        new Form1().Show();
+                        new frmMainWindow().Show();
                         this.Dispose();
                     }
 
