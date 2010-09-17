@@ -56,6 +56,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddFriendWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddFriendWindow.Designer.cs">
+      <DependentUpon>AddFriendWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="GlobalConfig.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
@@ -77,6 +83,10 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AddFriendWindow.resx">
+      <DependentUpon>AddFriendWindow.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -92,6 +102,10 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SignUpWindow.resx">
+      <DependentUpon>SignUpWindow.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
@@ -117,6 +131,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="SignUpWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SignUpWindow.Designer.cs">
+      <DependentUpon>SignUpWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Web References\OWChatService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -130,10 +150,10 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
-    <WebReferenceUrl Include="http://localhost:8080/ow-chat/OWChatService%3fwsdl">
+    <WebReferenceUrl Include="http://192.168.0.5:8080/ow-chat/OWChatService%3fwsdl">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\OWChatService\</RelPath>
-      <UpdateFromURL>http://localhost:8080/ow-chat/OWChatService%3fwsdl</UpdateFromURL>
+      <UpdateFromURL>http://192.168.0.5:8080/ow-chat/OWChatService%3fwsdl</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>
