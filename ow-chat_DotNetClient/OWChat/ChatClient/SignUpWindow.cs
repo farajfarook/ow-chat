@@ -11,6 +11,8 @@ namespace ChatClient
 {
     public partial class frmSignUpWindow : Form
     {
+        bool signUpDone = false;
+
         public frmSignUpWindow()
         {
             InitializeComponent();
@@ -57,6 +59,7 @@ namespace ChatClient
                 }
                 else
                 {
+                    signUpDone = true;
                     String key = GlobalConfig.ChatService.signIn(tbUserName.Text.ToLower(), tbConfPassword.Text.ToLower());
                     if (key == null)
                     {
@@ -80,7 +83,7 @@ namespace ChatClient
             }
             catch (Exception ex)
             {
-                MessageBox.Show("SignUp Error : " + ex.Message);
+                MessageBox.Show("SignUp Error : " + ex.Message, "ow-chat", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Enabled = true;
                 tbPassword.Text = "";
                 tbConfPassword.Text = "";
@@ -91,13 +94,27 @@ namespace ChatClient
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-
+            signUpDone = false;
+            this.Close();
         }
 
         private void tbConfPassword_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Return)
                 btnSignup_Click(null, null);
+        }
+
+        private void frmSignUpWindow_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void frmSignUpWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!signUpDone)
+            {
+                new frmSignInWindow().Show();
+            }
         }
 
 

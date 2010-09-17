@@ -33,10 +33,6 @@ namespace ChatClient
                 return;
             }
             else {
-                //Form1 child = new Form1(); //create new isntance of form
-                //child.FormClosed += new FormClosedEventHandler(child_FormClosed); //add handler to catch when child form is closed
-                //child.Show(); //show child
-                //this.Hide(); //hide parent
                 String sessionKey = "";
                 this.Text += " : Signing in...";
                 this.Enabled = false;
@@ -65,7 +61,7 @@ namespace ChatClient
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Sign In Error : " + ex.Message);
+                    MessageBox.Show("Sign In Error : " + ex.Message,"ow-chat",MessageBoxButtons.OK,MessageBoxIcon.Error);
                     tbUserID.Text = "";
                     tbPassword.Text = "";
                     tbUserID.Focus();
