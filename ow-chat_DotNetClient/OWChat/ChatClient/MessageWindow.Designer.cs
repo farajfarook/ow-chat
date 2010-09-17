@@ -1,6 +1,6 @@
 ﻿namespace ChatClient
 {
-    partial class MessageFrm
+    partial class frmMessageWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MessageFrm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMessageWindow));
             this.messageRtb = new System.Windows.Forms.RichTextBox();
             this.sendMsgRtb = new System.Windows.Forms.RichTextBox();
             this.sendBtn = new System.Windows.Forms.Button();
@@ -282,7 +282,7 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // MessageFrm
+            // frmMessageWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -299,7 +299,7 @@
             this.Controls.Add(this.messageRtb);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "MessageFrm";
+            this.Name = "frmMessageWindow";
             this.Text = "Message Window";
             this.Load += new System.EventHandler(this.MessageFrm_Load);
             this.panelEmoticons.ResumeLayout(false);

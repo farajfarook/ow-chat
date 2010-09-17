@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace ChatClient
 {
-    public partial class MessageFrm : Form
+    public partial class frmMessageWindow : Form
     {
 
         private String sFriendName;     // name of the friend
@@ -23,7 +23,7 @@ namespace ChatClient
         // Constructor is modified******
         // When creating an instance from this class, it is a must to give a name of the person
         // at the other end
-        public MessageFrm(String friendName)
+        public frmMessageWindow(String friendName)
         {
             InitializeComponent();
             

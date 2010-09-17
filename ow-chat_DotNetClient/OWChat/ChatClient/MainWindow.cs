@@ -71,7 +71,7 @@ namespace ChatClient
             timer1.Enabled = true;
             bool registerResult;
             //chatService.registerUser("Hero", "123",out registerResult,out registerResult);
-            MessageFrm msg = new MessageFrm("Her");
+            frmMessageWindow msg = new frmMessageWindow("Her");
             msg.Show();
         }
 

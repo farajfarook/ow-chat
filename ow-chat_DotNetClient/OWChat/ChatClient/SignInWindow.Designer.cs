@@ -1,6 +1,6 @@
 ﻿namespace ChatClient
 {
-    partial class signInFrm
+    partial class frmSignInWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(signInFrm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSignInWindow));
             this.userIdLbl = new System.Windows.Forms.Label();
             this.passwordLbl = new System.Windows.Forms.Label();
             this.tbUserID = new System.Windows.Forms.TextBox();
@@ -127,17 +127,17 @@
             this.label1.ForeColor = System.Drawing.Color.DarkSlateBlue;
             this.label1.Location = new System.Drawing.Point(105, 22);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(210, 24);
+            this.label1.Size = new System.Drawing.Size(211, 24);
             this.label1.TabIndex = 8;
-            this.label1.Text = "Welcome to OW Chat";
+            this.label1.Text = "Welcome to OW-Chat";
             // 
-            // signInFrm
+            // frmSignInWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Lavender;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.ClientSize = new System.Drawing.Size(327, 290);
+            this.ClientSize = new System.Drawing.Size(327, 219);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.pictureBox2);
@@ -150,9 +150,9 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "signInFrm";
+            this.Name = "frmSignInWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "OW Chat";
+            this.Text = "OW-Chat";
             this.Load += new System.EventHandler(this.signInFrm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
