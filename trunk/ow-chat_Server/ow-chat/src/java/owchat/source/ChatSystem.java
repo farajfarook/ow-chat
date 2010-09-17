@@ -162,5 +162,14 @@ public class ChatSystem {
         if (user==null)
             throw new OWChatException("Invalid keyString");
         return UserManager.RemoveUser(user);
-    }   
+    }
+
+    public String[] searchUser(String searchContent) throws OWChatException{
+        User[] users = UserManager.Search(searchContent);
+        String[] strs = new String[users.length];
+        for (int i= 0; i < strs.length; i++) {
+            strs[i] = users[i].toString();
+        }
+        return strs;
+    }
 }
