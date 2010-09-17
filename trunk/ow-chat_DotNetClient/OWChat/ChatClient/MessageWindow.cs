@@ -46,7 +46,7 @@ namespace ChatClient
                    
                     //chat.sendMessage(Form1.Me,sendMsgRtb.Rtf,user);
                     bool result, gotRes;
-                    GlobalConfig.ChatService.sendMessage(sFriendName, sendMsgRtb.Text,GlobalConfig.SessionKey, out result, out gotRes);
+                    GlobalConfig.ChatService.sendMessage(sFriendName, sendMsgRtb.Rtf,GlobalConfig.SessionKey, out result, out gotRes);
                     messageRtb.SelectedText= GlobalConfig.DisplayName +": ";  //Set DisplayName in the main window
                     messageRtb.SelectedRtf = sendMsgRtb.Rtf;
                     messageRtb.ScrollToCaret();
@@ -190,7 +190,9 @@ namespace ChatClient
             //you got a chat message from the other end..
             //display it in the window as appropriate
             messageRtb.SelectedText = sFriendName + ": ";
-            messageRtb.SelectedText = message;
+            messageRtb.SelectedRtf = message;
+            if (message.Contains("BEEP!!!"))
+                System.Console.Beep();
             messageRtb.ScrollToCaret();
             
         }
@@ -278,15 +280,13 @@ namespace ChatClient
         private void button1_Click(object sender, EventArgs e)
         {
             
-                System.Console.Beep();
-
-                messageRtb.SelectionFont = new Font("Verdana", 12, FontStyle.Bold);
-                messageRtb.SelectionColor = Color.Red;
-                messageRtb.SelectedText = "BEEP!!!" + Environment.NewLine;
-                messageRtb.SelectionFont = new Font("Microsoft Sans Serif", 8, FontStyle.Regular);
-                messageRtb.SelectionColor = Color.Black;
-                //messageRtb.ForeColor = System.Drawing.Color.Red;
-                //messageRtb.Font.Size=16;
+            System.Console.Beep();
+            sendMsgRtb.SelectionFont = new Font("Verdana", 12, FontStyle.Bold);
+            sendMsgRtb.SelectionColor = Color.Red;
+            sendMsgRtb.SelectedText = "BEEP!!!" + Environment.NewLine;
+            sendBtn_Click(null, null);
+            sendMsgRtb.SelectionFont = new Font("Microsoft Sans Serif", 8, FontStyle.Regular);
+            sendMsgRtb.SelectionColor = Color.Black;
             
           }
 
