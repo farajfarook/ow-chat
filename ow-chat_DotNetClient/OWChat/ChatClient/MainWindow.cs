@@ -52,7 +52,7 @@ namespace ChatClient
         //string[] users = { "Anya", "Madhu" };
         static public string Me = string.Empty;
         static public string Mess = string.Empty;
-        
+
         // ****** want to access the web service? use GlobalConfig.ChatServer  ************
         // eg: registerUser function - GlobalConfig.ChatServer.registerUser();
 
@@ -60,9 +60,11 @@ namespace ChatClient
         private String[] friends;
         private bool[] friendStatus;
 
+        private delegate void sendMessageDelegate(int fNo, String msg);
+
         public frmMainWindow()
         {
-            InitializeComponent(); 
+            InitializeComponent();
         }
 
         public void loadFriendsList()
@@ -85,7 +87,7 @@ namespace ChatClient
 
             for (int i = 0; i < friends.Length; i++)
             {
-                
+
                 if (friendStatus[i])
                 {
                     lvFriends.Items.Add(friends[i]);
@@ -96,23 +98,24 @@ namespace ChatClient
                     lvFriends.Items.Add(friends[i] + " - offline");
                     lvFriends.Items[lvFriends.Items.Count - 1].ImageIndex = 4;
                 }
-                
+
             }
 
             chatWindows = new frmMessageWindow[friends.Length];
 
-            if (!bgwMessageListener.IsBusy)
-            {
-                bgwMessageListener.RunWorkerAsync();
-            }
-            
+            //if (!bgwMessageListener.IsBusy)
+            //{
+            //    bgwMessageListener.RunWorkerAsync();
+            //}
+            tmrReceiver.Start();
+
 
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             this.Enabled = false;
-            
+
             //GlobalConfig.DisplayName = "CurrentUser";  //****** once the user logged in, assign his name to DisplayName
 
             //timer1.Enabled = true;
@@ -120,27 +123,7 @@ namespace ChatClient
             //chatService.registerUser("Hero", "123",out registerResult,out registerResult);
         }
 
- 
 
-        //private void timer1_Tick(object sender, EventArgs e)
-        //{
-        //    updateUserList();
-        //    //MessageBox.Show(line);
-        //}
-
-        //private void updateUserList()
-        //{
-        //    string[] lines = System.IO.File.ReadAllLines(@"D:\SLIIT\2nd Semester\EAD\Assignment3\ChatClient\ChatClient\bin\Debug\userList.txt");
-        //    int iUserCnt = 0;
-        //    iUserCnt = String.Compare(lines, users);
-        //    if (iUserCnt != 0)
-        //    {
-        //        foreach (string l in lines)
-        //        {
-
-        //        }
-        //    }
-        
 
         private void signToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -168,7 +151,10 @@ namespace ChatClient
                             {
                                 if (friends[j] == incommingMsgs[i].from)
                                 {
-                                    sendMessageToChatWindow(j, incommingMsgs[i].body);
+                                    sendMessageDelegate del = new sendMessageDelegate(sendMessageToChatWindow);
+                                    //sendMessageToChatWindow(j, incommingMsgs[i].body);
+                                    del.Invoke(j, incommingMsgs[i].body);
+
                                     //ThreadStart tStart = delegate { sendMessageToChatWindow(j, incommingMsgs[0].body); };
                                     //Thread newThread = new Thread(tStart);
                                     //newThread.Start();
@@ -201,7 +187,7 @@ namespace ChatClient
             }
         }
 
-        private void sendMessageToChatWindow(int windowNo,String msgBody)
+        private void sendMessageToChatWindow(int windowNo, String msgBody)
         {
             String friendName = friends[windowNo];
             if (chatWindows[windowNo] == null)
@@ -213,9 +199,9 @@ namespace ChatClient
                 if (chatWindows[windowNo].IsDisposed)
                     chatWindows[windowNo] = new frmMessageWindow(friendName);
             }
-            if (chatWindows[windowNo].Visible==false)
+            if (chatWindows[windowNo].Visible == false)
             {
-                chatWindows[windowNo].ShowDialog();
+                chatWindows[windowNo].Show();
             }
             chatWindows[windowNo].receiveMessage(msgBody);
             chatWindows[windowNo].Refresh();
@@ -234,7 +220,7 @@ namespace ChatClient
         {
             userSignOut();
             GlobalConfig.mainWindow.Enabled = false;
-            new frmSignInWindow().Show();         
+            new frmSignInWindow().Show();
 
         }
 
@@ -246,6 +232,7 @@ namespace ChatClient
                 GlobalConfig.ChatService.signOut(GlobalConfig.SessionKey, out result, out gotRes);
                 if (result)
                 {
+                    tmrReceiver.Stop();
                     GlobalConfig.UserSignedIn = false;
                     return result;
                 }
@@ -307,7 +294,7 @@ namespace ChatClient
             chatWindows[offest].Show();
             chatWindows[offest].BringToFront();
             chatWindows[offest].Focus();
-            
+
         }
 
         private void lvFriends_SelectedIndexChanged(object sender, EventArgs e)
@@ -315,22 +302,37 @@ namespace ChatClient
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+         private void tmrReceiver_Tick(object sender, EventArgs e)
         {
-            Thread t = new Thread(new ThreadStart(runT));
-            t.IsBackground = true;
-            t.Start();
-            
+            OWChatService.message[] incommingMsgs = null;
+            if (!GlobalConfig.UserSignedIn)
+            {
+                tmrReceiver.Stop();
+            }
+            try
+            {
+                incommingMsgs = GlobalConfig.ChatService.receiveMessages(GlobalConfig.SessionKey);
+                if (incommingMsgs != null)
+                {
+                    for (int i = 0; i < incommingMsgs.Length; i++)
+                    {
+                        for (int j = 0; j < friends.Length; j++)
+                        {
+                            if (friends[j] == incommingMsgs[i].from)
+                            {
+                                sendMessageToChatWindow(j, incommingMsgs[i].body);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Receiving Error : " + ex.Message);
+                throw;
+            }
         }
-
-        private void runT()
-        {
-            new frmMessageWindow().ShowDialog();
-            //Thread.CurrentThread.Join();
-        }
-
-
-     }
-
+    }
 
 }
