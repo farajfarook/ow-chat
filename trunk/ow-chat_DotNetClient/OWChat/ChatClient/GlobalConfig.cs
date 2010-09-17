@@ -12,6 +12,8 @@ namespace ChatClient
         private static OWChatService.OWChatService chatService;
         private static String sessionKey;
 
+        public static frmMainWindow mainWindow; 
+
         public static String SessionKey
         {
             get { return GlobalConfig.sessionKey; }
