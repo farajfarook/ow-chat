@@ -41,6 +41,7 @@
             this.signOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.friendsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addFriendToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button1 = new System.Windows.Forms.Button();
             this.menuStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -74,6 +75,10 @@
             // timer1
             // 
             this.timer1.Interval = 200;
+            // 
+            // bgwMessageListener
+            // 
+            this.bgwMessageListener.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgwMessageListener_DoWork);
             // 
             // btnAdd
             // 
@@ -119,7 +124,7 @@
             // signOutToolStripMenuItem
             // 
             this.signOutToolStripMenuItem.Name = "signOutToolStripMenuItem";
-            this.signOutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.signOutToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.signOutToolStripMenuItem.Text = "&Sign out";
             this.signOutToolStripMenuItem.Click += new System.EventHandler(this.signOutToolStripMenuItem_Click);
             // 
@@ -134,15 +139,26 @@
             // addFriendToolStripMenuItem
             // 
             this.addFriendToolStripMenuItem.Name = "addFriendToolStripMenuItem";
-            this.addFriendToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.addFriendToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.addFriendToolStripMenuItem.Text = "Add Friend";
             this.addFriendToolStripMenuItem.Click += new System.EventHandler(this.addFriendToolStripMenuItem_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(69, 77);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // frmMainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(207, 409);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnSignOut);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.lvFriends);
@@ -175,6 +191,7 @@
         private System.Windows.Forms.ToolStripMenuItem signOutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem friendsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addFriendToolStripMenuItem;
+        private System.Windows.Forms.Button button1;
     }
 }
 
