@@ -39,7 +39,8 @@ namespace ChatClient
                 return;
             }
 
-            this.Text = this.Text + " Please wait...";
+            this.Text = this.Text + " : Please wait...";
+            this.Enabled = false;
             bool result,gotRes;
             try
             {
@@ -49,6 +50,7 @@ namespace ChatClient
                 if (!result)
                 {
                     MessageBox.Show("User already registered.");
+                    this.Enabled = true;
                     tbPassword.Text = "";
                     tbConfPassword.Text = "";
                     tbUserName.SelectAll();
@@ -66,7 +68,8 @@ namespace ChatClient
                     {
                         GlobalConfig.SessionKey = key;
                         GlobalConfig.DisplayName = tbUserName.Text;
-                        new frmMainWindow().Show();
+                        GlobalConfig.mainWindow.Enabled = true;
+                        GlobalConfig.mainWindow.Focus();
                         this.Dispose();
                     }
 
