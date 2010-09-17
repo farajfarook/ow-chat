@@ -48,7 +48,12 @@
             this.btnColor = new System.Windows.Forms.Button();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.Profile = new System.Windows.Forms.Button();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.button1 = new System.Windows.Forms.Button();
             this.panelEmoticons.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // messageRtb
@@ -57,13 +62,14 @@
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.messageRtb.BackColor = System.Drawing.SystemColors.Window;
-            this.messageRtb.Location = new System.Drawing.Point(12, 12);
+            this.messageRtb.Location = new System.Drawing.Point(11, 12);
             this.messageRtb.Name = "messageRtb";
             this.messageRtb.ReadOnly = true;
-            this.messageRtb.Size = new System.Drawing.Size(604, 252);
+            this.messageRtb.Size = new System.Drawing.Size(605, 228);
             this.messageRtb.TabIndex = 0;
             this.messageRtb.TabStop = false;
             this.messageRtb.Text = "";
+            this.messageRtb.TextChanged += new System.EventHandler(this.messageRtb_TextChanged);
             // 
             // sendMsgRtb
             // 
@@ -72,16 +78,15 @@
             this.sendMsgRtb.Location = new System.Drawing.Point(12, 307);
             this.sendMsgRtb.Multiline = false;
             this.sendMsgRtb.Name = "sendMsgRtb";
-            this.sendMsgRtb.Size = new System.Drawing.Size(539, 31);
+            this.sendMsgRtb.Size = new System.Drawing.Size(415, 31);
             this.sendMsgRtb.TabIndex = 1;
             this.sendMsgRtb.Text = "";
             this.sendMsgRtb.KeyDown += new System.Windows.Forms.KeyEventHandler(this.sendMsgRtb_KeyDown);
-            this.sendMsgRtb.TextChanged += new System.EventHandler(this.sendMsgRtb_TextChanged);
             // 
             // sendBtn
             // 
             this.sendBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.sendBtn.Location = new System.Drawing.Point(557, 307);
+            this.sendBtn.Location = new System.Drawing.Point(433, 307);
             this.sendBtn.Name = "sendBtn";
             this.sendBtn.Size = new System.Drawing.Size(59, 31);
             this.sendBtn.TabIndex = 2;
@@ -107,7 +112,7 @@
             this.panelEmoticons.Controls.Add(this.btnSmile);
             this.panelEmoticons.Location = new System.Drawing.Point(13, 212);
             this.panelEmoticons.Name = "panelEmoticons";
-            this.panelEmoticons.Size = new System.Drawing.Size(115, 55);
+            this.panelEmoticons.Size = new System.Drawing.Size(115, 63);
             this.panelEmoticons.TabIndex = 10;
             // 
             // btnX
@@ -203,6 +208,7 @@
             this.btnEmo.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnEmo.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnEmo.BackgroundImage")));
             this.btnEmo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnEmo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnEmo.Location = new System.Drawing.Point(13, 273);
             this.btnEmo.Name = "btnEmo";
             this.btnEmo.Size = new System.Drawing.Size(31, 28);
@@ -215,6 +221,7 @@
             this.btnFormat.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnFormat.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnFormat.BackgroundImage")));
             this.btnFormat.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnFormat.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnFormat.Location = new System.Drawing.Point(50, 273);
             this.btnFormat.Name = "btnFormat";
             this.btnFormat.Size = new System.Drawing.Size(31, 28);
@@ -227,6 +234,7 @@
             this.btnColor.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnColor.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnColor.BackgroundImage")));
             this.btnColor.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnColor.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnColor.Location = new System.Drawing.Point(87, 273);
             this.btnColor.Name = "btnColor";
             this.btnColor.Size = new System.Drawing.Size(30, 29);
@@ -234,11 +242,54 @@
             this.btnColor.UseVisualStyleBackColor = true;
             this.btnColor.Click += new System.EventHandler(this.btnColor_Click);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(498, 246);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(118, 101);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 14;
+            this.pictureBox1.TabStop = false;
+            // 
+            // Profile
+            // 
+            this.Profile.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Profile.BackgroundImage")));
+            this.Profile.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Profile.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Profile.Location = new System.Drawing.Point(124, 273);
+            this.Profile.Name = "Profile";
+            this.Profile.Size = new System.Drawing.Size(33, 29);
+            this.Profile.TabIndex = 15;
+            this.Profile.UseVisualStyleBackColor = true;
+            this.Profile.Click += new System.EventHandler(this.Imvironment_Click);
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "imv_fish.gif");
+            this.imageList1.Images.SetKeyName(1, "vista-iconsms.png");
+            // 
+            // button1
+            // 
+            this.button1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button1.BackgroundImage")));
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button1.Location = new System.Drawing.Point(163, 273);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(35, 28);
+            this.button1.TabIndex = 16;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // MessageFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(629, 349);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.Profile);
             this.Controls.Add(this.btnColor);
             this.Controls.Add(this.btnFormat);
             this.Controls.Add(this.btnEmo);
@@ -252,6 +303,7 @@
             this.Text = "Message Window";
             this.Load += new System.EventHandler(this.MessageFrm_Load);
             this.panelEmoticons.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -276,5 +328,9 @@
         private System.Windows.Forms.Button btnColor;
         private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.FontDialog fontDialog1;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button Profile;
+        private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.Button button1;
     }
 }
