@@ -18,6 +18,7 @@ import java.util.Set;
 public class ChatSystem {
 
     private static ChatSystem chatSystem = null;
+    private UserManager manager;
     //MessageQueue messageQueue;
 
     public static ChatSystem initializeChatSystem(){
