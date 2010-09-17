@@ -19,7 +19,7 @@ namespace ChatClient
 
         private void signInFrm_Load(object sender, EventArgs e)
         {
-            new frmMessageWindow("temp").Show();      // for testing
+            //new frmMessageWindow("temp").Show();      // for testing
             bool val;
             //GlobalConfig.ChatService.resetChatServer(out val, out val);
         }
@@ -53,7 +53,7 @@ namespace ChatClient
                     {
                         GlobalConfig.SessionKey = sessionKey;
                         GlobalConfig.DisplayName = tbUserID.Text;
-                        new frmMainWindow().Show();
+                        GlobalConfig.mainWindow.Enabled = true;
                         this.Dispose();
                     }
 
@@ -70,7 +70,19 @@ namespace ChatClient
         {
             frmSignUpWindow signUp = new frmSignUpWindow();
             signUp.Show();
-            this.Hide();
+            this.Dispose();
+        }
+
+        private void tbPassword_MouseDown(object sender, MouseEventArgs e)
+        {
+     
+        }
+
+        private void tbPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode==Keys.Return)
+                signInBtn_Click(null, null);
+
         }
 
 

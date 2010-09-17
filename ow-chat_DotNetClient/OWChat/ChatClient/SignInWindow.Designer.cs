@@ -58,7 +58,7 @@
             this.passwordLbl.AutoSize = true;
             this.passwordLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.passwordLbl.ForeColor = System.Drawing.Color.DarkSlateBlue;
-            this.passwordLbl.Location = new System.Drawing.Point(112, 118);
+            this.passwordLbl.Location = new System.Drawing.Point(112, 112);
             this.passwordLbl.Name = "passwordLbl";
             this.passwordLbl.Size = new System.Drawing.Size(69, 15);
             this.passwordLbl.TabIndex = 1;
@@ -77,6 +77,8 @@
             this.tbPassword.Name = "tbPassword";
             this.tbPassword.Size = new System.Drawing.Size(100, 20);
             this.tbPassword.TabIndex = 3;
+            this.tbPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbPassword_KeyDown);
+            this.tbPassword.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tbPassword_MouseDown);
             // 
             // signInBtn
             // 
@@ -152,7 +154,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmSignInWindow";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "OW-Chat";
             this.Load += new System.EventHandler(this.signInFrm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
