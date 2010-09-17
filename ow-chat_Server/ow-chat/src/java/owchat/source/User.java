@@ -75,6 +75,7 @@ public class User implements java.io.Serializable {
         for (int i=0; i< messages.length;i++) {
             messages[i] = it.next();
         }
+        waitingMessages.clear();
         return messages;
     }
 
