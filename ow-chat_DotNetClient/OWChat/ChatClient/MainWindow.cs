@@ -60,23 +60,38 @@ namespace ChatClient
         public frmMainWindow()
         {
             InitializeComponent(); 
-            
+        }
+
+        public void userLoggedIn()
+        {
+            String[] friends = GlobalConfig.ChatService.getAllFriends(GlobalConfig.SessionKey);
+            if (friends != null)
+                this.friends = friends;
+
+            foreach (String name in friends)
+            {
+                lvFriends.Items.Add(name);
+                lvFriends.Items[lvFriends.Items.Count - 1].ImageIndex = 0;
+            }
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            this.Enabled = false;
+            friends = new String[1];
+            friends[0] = "Chatter Bot";
+            lvFriends.Items.Add("Chatter Bot");
+            lvFriends.Items[0].ImageIndex = 0;
+            
             //GlobalConfig.DisplayName = "CurrentUser";  //****** once the user logged in, assign his name to DisplayName
 
-            timer1.Enabled = true;
-            bool registerResult;
+            //timer1.Enabled = true;
+            //bool registerResult;
             //chatService.registerUser("Hero", "123",out registerResult,out registerResult);
         }
 
-        private void userListView_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        
-        }
+ 
 
         //private void timer1_Tick(object sender, EventArgs e)
         //{
@@ -112,6 +127,66 @@ namespace ChatClient
                 //dispatch them to the correct chat window
                 //repeat
             }
+        }
+
+        private void frmMainWindow_Shown(object sender, EventArgs e)
+        {
+            frmSignInWindow signInWindow = new frmSignInWindow();
+            signInWindow.Show();
+            signInWindow.BringToFront();
+        }
+
+        private void btnSignOut_Click(object sender, EventArgs e)
+        {
+            userSignOut();
+            GlobalConfig.mainWindow.Enabled = false;
+            new frmSignInWindow().Show();         
+
+        }
+
+        private bool userSignOut()
+        {
+            bool result, gotRes;
+            try
+            {
+                GlobalConfig.ChatService.signOut(GlobalConfig.SessionKey, out result, out gotRes);
+                if (result)
+                {
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("SignOut Error : " + ex.Message);
+            }
+            return false;
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            new frmAddFriendWindow().Show();
+        }
+
+        private void addFriendToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            btnAdd_Click(null, null);
+        }
+
+        private void signOutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            btnSignOut_Click(null, null);
+        }
+
+        private void frmMainWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.Text = this.Text + " : Signing out..";
+            userSignOut();
+        }
+
+        private void lvFriends_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            String friendName = friends[lvFriends.SelectedIndices[0]];
+            MessageBox.Show(friendName);
         }
 
      }

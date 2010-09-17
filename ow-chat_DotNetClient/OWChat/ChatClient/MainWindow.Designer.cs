@@ -30,94 +30,130 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMainWindow));
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.signToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.userListView = new System.Windows.Forms.ListView();
-            this.chatTabControl = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.lvFriends = new System.Windows.Forms.ListView();
+            this.imageListSmall = new System.Windows.Forms.ImageList(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.bgwMessageListener = new System.ComponentModel.BackgroundWorker();
-            this.menuStrip1.SuspendLayout();
-            this.chatTabControl.SuspendLayout();
+            this.btnAdd = new System.Windows.Forms.Button();
+            this.btnSignOut = new System.Windows.Forms.Button();
+            this.menuStripMain = new System.Windows.Forms.MenuStrip();
+            this.owchatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.signOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.friendsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addFriendToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
-            // menuStrip1
+            // lvFriends
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.signToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(867, 24);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
+            this.lvFriends.LargeImageList = this.imageListSmall;
+            this.lvFriends.Location = new System.Drawing.Point(9, 103);
+            this.lvFriends.Margin = new System.Windows.Forms.Padding(0);
+            this.lvFriends.MultiSelect = false;
+            this.lvFriends.Name = "lvFriends";
+            this.lvFriends.ShowGroups = false;
+            this.lvFriends.Size = new System.Drawing.Size(189, 297);
+            this.lvFriends.SmallImageList = this.imageListSmall;
+            this.lvFriends.StateImageList = this.imageListSmall;
+            this.lvFriends.TabIndex = 1;
+            this.lvFriends.UseCompatibleStateImageBehavior = false;
+            this.lvFriends.View = System.Windows.Forms.View.List;
+            this.lvFriends.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvFriends_MouseDoubleClick);
             // 
-            // signToolStripMenuItem
+            // imageListSmall
             // 
-            this.signToolStripMenuItem.Name = "signToolStripMenuItem";
-            this.signToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
-            this.signToolStripMenuItem.Text = "Sign Out";
-            // 
-            // userListView
-            // 
-            this.userListView.Location = new System.Drawing.Point(0, 27);
-            this.userListView.Name = "userListView";
-            this.userListView.Size = new System.Drawing.Size(236, 395);
-            this.userListView.TabIndex = 1;
-            this.userListView.UseCompatibleStateImageBehavior = false;
-            this.userListView.SelectedIndexChanged += new System.EventHandler(this.userListView_SelectedIndexChanged);
-            // 
-            // chatTabControl
-            // 
-            this.chatTabControl.Controls.Add(this.tabPage1);
-            this.chatTabControl.Controls.Add(this.tabPage2);
-            this.chatTabControl.Location = new System.Drawing.Point(235, 27);
-            this.chatTabControl.Name = "chatTabControl";
-            this.chatTabControl.SelectedIndex = 0;
-            this.chatTabControl.Size = new System.Drawing.Size(632, 395);
-            this.chatTabControl.TabIndex = 2;
-            this.chatTabControl.Visible = false;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(624, 369);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(624, 369);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.imageListSmall.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListSmall.ImageStream")));
+            this.imageListSmall.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageListSmall.Images.SetKeyName(0, "1.gif");
+            this.imageListSmall.Images.SetKeyName(1, "Add-icon.png");
+            this.imageListSmall.Images.SetKeyName(2, "out.JPG");
             // 
             // timer1
             // 
             this.timer1.Interval = 200;
             // 
+            // btnAdd
+            // 
+            this.btnAdd.ImageIndex = 1;
+            this.btnAdd.ImageList = this.imageListSmall;
+            this.btnAdd.Location = new System.Drawing.Point(12, 40);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(51, 45);
+            this.btnAdd.TabIndex = 2;
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // btnSignOut
+            // 
+            this.btnSignOut.ImageKey = "out.JPG";
+            this.btnSignOut.ImageList = this.imageListSmall;
+            this.btnSignOut.Location = new System.Drawing.Point(140, 40);
+            this.btnSignOut.Name = "btnSignOut";
+            this.btnSignOut.Size = new System.Drawing.Size(51, 45);
+            this.btnSignOut.TabIndex = 3;
+            this.btnSignOut.UseVisualStyleBackColor = true;
+            this.btnSignOut.Click += new System.EventHandler(this.btnSignOut_Click);
+            // 
+            // menuStripMain
+            // 
+            this.menuStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.owchatToolStripMenuItem,
+            this.friendsToolStripMenuItem});
+            this.menuStripMain.Location = new System.Drawing.Point(0, 0);
+            this.menuStripMain.Name = "menuStripMain";
+            this.menuStripMain.Size = new System.Drawing.Size(207, 24);
+            this.menuStripMain.TabIndex = 4;
+            this.menuStripMain.Text = "menuStripMain";
+            // 
+            // owchatToolStripMenuItem
+            // 
+            this.owchatToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.signOutToolStripMenuItem});
+            this.owchatToolStripMenuItem.Name = "owchatToolStripMenuItem";
+            this.owchatToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
+            this.owchatToolStripMenuItem.Text = "ow-chat";
+            // 
+            // signOutToolStripMenuItem
+            // 
+            this.signOutToolStripMenuItem.Name = "signOutToolStripMenuItem";
+            this.signOutToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
+            this.signOutToolStripMenuItem.Text = "&Sign out";
+            this.signOutToolStripMenuItem.Click += new System.EventHandler(this.signOutToolStripMenuItem_Click);
+            // 
+            // friendsToolStripMenuItem
+            // 
+            this.friendsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addFriendToolStripMenuItem});
+            this.friendsToolStripMenuItem.Name = "friendsToolStripMenuItem";
+            this.friendsToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
+            this.friendsToolStripMenuItem.Text = "Friends";
+            // 
+            // addFriendToolStripMenuItem
+            // 
+            this.addFriendToolStripMenuItem.Name = "addFriendToolStripMenuItem";
+            this.addFriendToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.addFriendToolStripMenuItem.Text = "Add Friend";
+            this.addFriendToolStripMenuItem.Click += new System.EventHandler(this.addFriendToolStripMenuItem_Click);
+            // 
             // frmMainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(867, 421);
-            this.Controls.Add(this.chatTabControl);
-            this.Controls.Add(this.userListView);
-            this.Controls.Add(this.menuStrip1);
+            this.ClientSize = new System.Drawing.Size(207, 409);
+            this.Controls.Add(this.btnSignOut);
+            this.Controls.Add(this.btnAdd);
+            this.Controls.Add(this.lvFriends);
+            this.Controls.Add(this.menuStripMain);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.menuStrip1;
+            this.MaximizeBox = false;
             this.Name = "frmMainWindow";
-            this.Text = "Form1";
+            this.Text = "Ow-Chat";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
-            this.chatTabControl.ResumeLayout(false);
+            this.Shown += new System.EventHandler(this.frmMainWindow_Shown);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMainWindow_FormClosing);
+            this.menuStripMain.ResumeLayout(false);
+            this.menuStripMain.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -125,14 +161,17 @@
 
         #endregion
 
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem signToolStripMenuItem;
-        private System.Windows.Forms.ListView userListView;
-        private System.Windows.Forms.TabControl chatTabControl;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.ListView lvFriends;
         private System.Windows.Forms.Timer timer1;
         private System.ComponentModel.BackgroundWorker bgwMessageListener;
+        private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.Button btnSignOut;
+        private System.Windows.Forms.ImageList imageListSmall;
+        private System.Windows.Forms.MenuStrip menuStripMain;
+        private System.Windows.Forms.ToolStripMenuItem owchatToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem signOutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem friendsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addFriendToolStripMenuItem;
     }
 }
 
