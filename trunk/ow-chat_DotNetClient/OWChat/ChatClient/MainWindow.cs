@@ -81,33 +81,39 @@ namespace ChatClient
                 {
                     string[] values = splitUserInformation(friendsList[i]);
                     this.friends[i] = values[0];
-                    this.friendStatus[i] = Boolean.Parse(values[3]);
+                    this.friendStatus[i] = Boolean.Parse(values[values.Length-1]);
                 }
+
+                for (int i = 0; i < friends.Length; i++)
+                {
+
+                    if (friendStatus[i])
+                    {
+                        lvFriends.Items.Add(friends[i]);
+                        lvFriends.Items[lvFriends.Items.Count - 1].ImageIndex = 3;
+                    }
+                    else
+                    {
+                        lvFriends.Items.Add(friends[i] + " - offline");
+                        lvFriends.Items[lvFriends.Items.Count - 1].ImageIndex = 4;
+                    }
+
+                }
+
+                chatWindows = new frmMessageWindow[friends.Length];
+
+                //if (!bgwMessageListener.IsBusy)
+                //{
+                //    bgwMessageListener.RunWorkerAsync();
+                //}
+                this.Text += " - " + GlobalConfig.DisplayName;
+
+                tmrReceiver.Start();
+
+               
             }
 
-            for (int i = 0; i < friends.Length; i++)
-            {
-
-                if (friendStatus[i])
-                {
-                    lvFriends.Items.Add(friends[i]);
-                    lvFriends.Items[lvFriends.Items.Count - 1].ImageIndex = 3;
-                }
-                else
-                {
-                    lvFriends.Items.Add(friends[i] + " - offline");
-                    lvFriends.Items[lvFriends.Items.Count - 1].ImageIndex = 4;
-                }
-
-            }
-
-            chatWindows = new frmMessageWindow[friends.Length];
-
-            //if (!bgwMessageListener.IsBusy)
-            //{
-            //    bgwMessageListener.RunWorkerAsync();
-            //}
-            tmrReceiver.Start();
+            
 
 
         }
@@ -180,7 +186,7 @@ namespace ChatClient
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Receiving Error : " + ex.Message);
+                    MessageBox.Show("Receiving Error : " + ex.Message,"ow-chat",MessageBoxButtons.OK,MessageBoxIcon.Error);
                     throw;
                 }
                 System.Threading.Thread.Sleep(2000);
@@ -334,6 +340,22 @@ namespace ChatClient
                 throw;
             }
         }
+
+         private void removeFriendToolStripMenuItem_Click(object sender, EventArgs e)
+         {
+             DialogResult result = MessageBox.Show("Are you sure you want to remove " + lvFriends.SelectedItems[0].Text + " from your friends list?", "ow-chat", MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+             if (result==DialogResult.Yes)
+             {
+                 bool res,gotRes;
+                 GlobalConfig.ChatService.removeFromFriends(friends[lvFriends.SelectedIndices[0]], GlobalConfig.SessionKey, out res, out gotRes);
+                 if (res)
+                 {
+                     MessageBox.Show("Friend Removed","ow-chat",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                     loadFriendsList();
+                 }
+
+             }
+         }
     }
 
 }
