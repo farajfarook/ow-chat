@@ -26,7 +26,7 @@ namespace ChatClient.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:8080/ow-chat/OWChatService")]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://192.168.0.5:8080/ow-chat/OWChatService")]
         public string ChatClient_OWChatService_OWChatService {
             get {
                 return ((string)(this["ChatClient_OWChatService_OWChatService"]));
