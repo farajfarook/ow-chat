@@ -70,7 +70,7 @@ namespace ChatClient
                     GlobalConfig.ChatService.addAsFriend(tbFriendName.Text, GlobalConfig.SessionKey, out result, out gotRes);
                     if (result)
                     {
-                        MessageBox.Show("Ow-chat user " + tbFriendName.Text + " added as a friend of you.", "ow-chat");
+                        MessageBox.Show("Ow-chat user " + tbFriendName.Text + " added as a friend of you.", "ow-chat",MessageBoxButtons.OK,MessageBoxIcon.Information);
                         GlobalConfig.mainWindow.loadFriendsList();
                         this.Dispose();
                     }

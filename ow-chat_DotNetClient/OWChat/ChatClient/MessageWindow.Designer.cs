@@ -33,7 +33,6 @@
             this.messageRtb = new System.Windows.Forms.RichTextBox();
             this.sendMsgRtb = new System.Windows.Forms.RichTextBox();
             this.sendBtn = new System.Windows.Forms.Button();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panelEmoticons = new System.Windows.Forms.Panel();
             this.btnX = new System.Windows.Forms.Button();
             this.btnClock = new System.Windows.Forms.Button();
@@ -93,10 +92,6 @@
             this.sendBtn.Text = "Send";
             this.sendBtn.UseVisualStyleBackColor = true;
             this.sendBtn.Click += new System.EventHandler(this.sendBtn_Click);
-            // 
-            // timer1
-            // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // panelEmoticons
             // 
@@ -300,8 +295,9 @@
             this.Controls.Add(this.messageRtb);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "frmMessageWindow";
-            this.Text = "Message Window";
+            this.Text = "Conversation";
             this.Load += new System.EventHandler(this.MessageFrm_Load);
             this.panelEmoticons.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -314,7 +310,6 @@
         private System.Windows.Forms.RichTextBox messageRtb;
         private System.Windows.Forms.RichTextBox sendMsgRtb;
         private System.Windows.Forms.Button sendBtn;
-        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Panel panelEmoticons;
         private System.Windows.Forms.Button btnX;
         private System.Windows.Forms.Button btnClock;

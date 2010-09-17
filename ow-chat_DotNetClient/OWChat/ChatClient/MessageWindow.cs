@@ -28,7 +28,7 @@ namespace ChatClient
             InitializeComponent();
             
             this.sFriendName = friendName;
-            this.Text += " : " + friendName;
+            this.Text += " with " + friendName;
         }
 
         public frmMessageWindow()
@@ -196,36 +196,7 @@ namespace ChatClient
             messageRtb.ScrollToCaret();
             
         }
-
-               
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-        try
-            {
-                if (frmMainWindow.Mess.Trim().Length > 0)
-                {
-                    string[] strU = frmMainWindow.Mess.Split(':');
-                    string strM = string.Empty;
-                    if (strU[0] == sFriendName)
-                    {
-                        for (int i = 1; i < strU.Length; i++)
-                        {
-                            strM = strM + strU[i];
-                        }
-                        messageRtb.SelectedText = strU[0] + ": ";
-                        messageRtb.SelectedRtf = strM;
-                        frmMainWindow.Mess = "";
-                        messageRtb.ScrollToCaret();
-                        
-                    }
-                }
-        }
-            catch (Exception exx)
-            {
-                MessageBox.Show("Error in connecting to the chat server.");
-            }
-        }
+                   
 
         private void btnEmo_Click(object sender, EventArgs e)
         {

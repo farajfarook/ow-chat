@@ -106,7 +106,7 @@ namespace ChatClient
                 //{
                 //    bgwMessageListener.RunWorkerAsync();
                 //}
-                this.Text = "Ow-Chat  [ " + GlobalConfig.DisplayName + " ]";
+                this.Text = "Ow-Chat ~ [" + GlobalConfig.DisplayName + "]";
 
                 tmrReceiver.Start();
 
