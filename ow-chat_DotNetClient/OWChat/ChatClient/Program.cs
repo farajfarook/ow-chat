@@ -10,7 +10,8 @@ namespace ChatClient
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        [STAThread]
+        //[STAThread]
+        [MTAThread]
         static void Main()
         {
             //OWChatServiceReference chat = new OWChatServiceReference();
