@@ -4,8 +4,11 @@
  */
 package owchat.source;
 
-import java.util.ArrayList;
+import java.util.AbstractSet;
+import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -24,6 +27,8 @@ public class User {
 
     public User() {
         online = false;
+        friends = new HashSet<User>();
+        waitingMessages = new HashSet<Message>();
     }
 
     public User(String userName, String pasword) {
@@ -50,11 +55,8 @@ public class User {
     }
 
     public boolean isFriendsWtih(User friend) {
-        if (friends.contains(friend)) {
-            return false;
-        } else {
-            return true;
-        }
+
+        return friends.contains(friend);
     }
 
     public Set getFriends() {
