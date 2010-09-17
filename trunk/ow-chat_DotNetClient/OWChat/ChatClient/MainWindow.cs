@@ -54,7 +54,7 @@ namespace ChatClient
         // ****** want to access the web service? use GlobalConfig.ChatServer  ************
         // eg: registerUser function - GlobalConfig.ChatServer.registerUser();
 
-        private Form[] chatWindows;
+        private frmMessageWindow[] chatWindows;
         private String[] friends;
 
         public frmMainWindow()
@@ -62,27 +62,34 @@ namespace ChatClient
             InitializeComponent(); 
         }
 
-        public void userLoggedIn()
+        public void loadFriendsList()
         {
-            String[] friends = GlobalConfig.ChatService.getAllFriends(GlobalConfig.SessionKey);
-            if (friends != null)
-                this.friends = friends;
+            lvFriends.Items.Clear();
 
-            foreach (String name in friends)
+            String[] friendsList = GlobalConfig.ChatService.getAllFriends(GlobalConfig.SessionKey);
+            if (friendsList != null)
+            {
+                this.friends = new string[friendsList.Length];
+                for (int i = 0; i < friendsList.Length; i++)
+                {
+                    string[] values = splitUserInformation(friendsList[i]);
+                    this.friends[i] = values[0];
+                }
+            }
+
+            foreach (String name in this.friends)
             {
                 lvFriends.Items.Add(name);
                 lvFriends.Items[lvFriends.Items.Count - 1].ImageIndex = 0;
             }
+
+            chatWindows = new frmMessageWindow[friends.Length];
 
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             this.Enabled = false;
-            friends = new String[1];
-            friends[0] = "Chatter Bot";
-            lvFriends.Items.Add("Chatter Bot");
-            lvFriends.Items[0].ImageIndex = 0;
             
             //GlobalConfig.DisplayName = "CurrentUser";  //****** once the user logged in, assign his name to DisplayName
 
@@ -180,13 +187,40 @@ namespace ChatClient
         private void frmMainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.Text = this.Text + " : Signing out..";
-            userSignOut();
+            if (!userSignOut())
+            {
+
+                e.Cancel = false;
+            }
+        }
+
+        private String[] splitUserInformation(String text)
+        {
+            return text.Split(new char[] { ' ' });
         }
 
         private void lvFriends_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            String friendName = friends[lvFriends.SelectedIndices[0]];
-            MessageBox.Show(friendName);
+            int offest = lvFriends.SelectedIndices[0];
+
+            if (chatWindows[offest] == null)
+            {
+                chatWindows[offest] = new frmMessageWindow(friends[offest]);
+            }
+            else
+            {
+                if (chatWindows[offest].IsDisposed)
+                    chatWindows[offest] = new frmMessageWindow(friends[offest]);
+            }
+            chatWindows[offest].Show();
+            chatWindows[offest].BringToFront();
+            chatWindows[offest].Focus();
+            
+        }
+
+        private void lvFriends_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
 
      }
