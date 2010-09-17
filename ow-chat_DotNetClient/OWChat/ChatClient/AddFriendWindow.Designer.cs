@@ -42,7 +42,7 @@
             this.btnAdd.Location = new System.Drawing.Point(200, 50);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 23);
-            this.btnAdd.TabIndex = 0;
+            this.btnAdd.TabIndex = 1;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
@@ -52,7 +52,7 @@
             this.btnCancel.Location = new System.Drawing.Point(200, 90);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 1;
+            this.btnCancel.TabIndex = 3;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -79,7 +79,7 @@
             this.btnSearch.Location = new System.Drawing.Point(121, 50);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(75, 23);
-            this.btnSearch.TabIndex = 10;
+            this.btnSearch.TabIndex = 2;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
@@ -98,7 +98,7 @@
             this.tbFriendName.Location = new System.Drawing.Point(130, 9);
             this.tbFriendName.Name = "tbFriendName";
             this.tbFriendName.Size = new System.Drawing.Size(145, 20);
-            this.tbFriendName.TabIndex = 8;
+            this.tbFriendName.TabIndex = 0;
             // 
             // frmAddFriendWindow
             // 
