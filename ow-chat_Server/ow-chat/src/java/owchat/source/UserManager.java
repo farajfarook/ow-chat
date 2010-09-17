@@ -5,6 +5,9 @@
 
 package owchat.source;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -60,8 +63,9 @@ public class UserManager
          return GetUserByName(newUser.getUserName())!=null;
     }
 
-    public static Boolean AddUser(User newUser)
+    public static Boolean AddUser(String username, String password)
     {
+        User newUser = new User(username, GetMd5Digest(password));
         if(UserExcist(newUser)) return false;
         users.add(newUser);
         return true;
@@ -151,7 +155,7 @@ public class UserManager
         ArrayList<User> matchedUsers = new ArrayList<User>();
         for (Iterator<User> it = users.iterator(); it.hasNext();) {
             User user = it.next();
-            if(user.getUserName().indexOf(searchContent)>0)
+            if(user.getUserName().toLowerCase().indexOf(searchContent.toLowerCase())>=0)
                 matchedUsers.add(user);
         }
         return toUserArray(matchedUsers);
@@ -166,5 +170,20 @@ public class UserManager
             userArr[i] = (User) object;
         }
         return userArr;
+    }
+
+    public static String GetMd5Digest(String input)
+    {
+        try
+        {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(input.getBytes());
+            BigInteger number = new BigInteger(1,messageDigest);
+            return number.toString(16);
+        }
+        catch(NoSuchAlgorithmException e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 }
