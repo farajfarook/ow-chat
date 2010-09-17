@@ -11,9 +11,9 @@ namespace ChatClient
         private static String displayName;
         private static OWChatService.OWChatService chatService;
         private static String sessionKey;
-        private bool userSignedIn = false;
+        private static bool userSignedIn = false;
 
-        public bool UserSignedIn
+        public static bool UserSignedIn
         {
             get { return userSignedIn; }
             set { userSignedIn = value; }
