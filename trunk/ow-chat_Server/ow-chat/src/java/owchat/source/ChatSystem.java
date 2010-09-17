@@ -6,6 +6,8 @@
 package owchat.source;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Set;
 
 
 
@@ -16,8 +18,6 @@ import java.util.ArrayList;
 public class ChatSystem {
 
     private static ChatSystem chatSystem = null;
-
-    ArrayList<User> users;
     //MessageQueue messageQueue;
 
     public static ChatSystem initializeChatSystem(){
@@ -28,33 +28,33 @@ public class ChatSystem {
 
     private ChatSystem() {
         //messageQueue = MessageQueue.initializeMessageQueue();
-        users = new ArrayList<User>();
     }
 
     public String[] getAllUsers(){
-        String[] strs = new String[users.size()];
+        String[] strs = new String[UserManager.UserCount()];
+        User[] users = UserManager.GetUsers();
         for (int i= 0; i < strs.length; i++) {
-            User usr = users.get(i);
-            strs[i] = usr.getUserName() + " " + usr.getPassword() + " " + usr.getKeyString() + " " + usr.isOnline();
+            strs[i] = users[i].toString();
         }
         return strs;
     }
 
     public String[] getAllFriends(String keyString) throws OWChatException{
-        User user = getUserByKeyString(keyString);
+        User user = UserManager.GetUserByKeyString(keyString);
         if (user==null)
             throw new OWChatException("Invalid user name");
-        ArrayList<User> friends = user.getFriends();
+        Set<User> friends = user.getFriends();
         String[] strs = new String[friends.size()];
+        Iterator<User> friendIterator = friends.iterator();
         for (int i= 0; i < strs.length; i++) {
-            User frnd = friends.get(i);
-            strs[i] =frnd.getUserName() + " " + frnd.getPassword() + " " + frnd.getKeyString() + " " + frnd.isOnline();
+            User frnd = friendIterator.next();
+            strs[i] = frnd.toString();
         }
         return strs;
     }
 
     public boolean resetSystem(){
-        users = new ArrayList<User>();
+        UserManager.ClearUsers();
         //messageQueue.resetQueue();
         return true;
     }
@@ -63,9 +63,7 @@ public class ChatSystem {
         if ( (userName==null) || (password==null))
             return false;
         User newUser = new User(userName,password);
-        if (users.indexOf(newUser)<0)
-            users.add(newUser);
-        else
+        if (!UserManager.AddUser(newUser))
             throw new OWChatException("User already exists.");
         return true;
     }
@@ -73,12 +71,12 @@ public class ChatSystem {
     public String signIn(String userName, String password) throws OWChatException{
         if ( (userName==null) || (password==null))
             return null;
-        User user = getUserByName(userName);
+        User user = UserManager.GetUserByName(userName);
         if (user==null)
             throw new OWChatException("Invalid user name");
         if (!user.getPassword().equals(password))
             throw new OWChatException("Incorrect password");
-        if (user.isOnline())
+        if (user.getOnline())
             throw new OWChatException("User is already online. Automatic signout feature not yet implemented");
         else{
             user.setOnline(true);
@@ -89,10 +87,10 @@ public class ChatSystem {
     public boolean signOut(String keyString) throws OWChatException{
         if (keyString==null)
             return false;
-        User currentUser = getUserByKeyString(keyString);
+        User currentUser = UserManager.GetUserByKeyString(keyString);
         if (currentUser==null)
             throw new OWChatException("Invalid keyString");
-        if (currentUser.isOnline()){
+        if (currentUser.getOnline()){
             currentUser.generateKeyString();
             currentUser.setOnline(false);
         }else
@@ -103,10 +101,10 @@ public class ChatSystem {
     public boolean addFriend(String friendName, String keyString) throws OWChatException{
         if ( (friendName==null) || (keyString==null))
             throw new OWChatException("Friend name or keyString cannot be null");
-        User currentUser = getUserByKeyString(keyString);
+        User currentUser = UserManager.GetUserByKeyString(keyString);
         if (currentUser==null)
            throw new OWChatException("Invalid keyString");
-        User friend = getUserByName(friendName);
+        User friend = UserManager.GetUserByName(friendName);
         if (friend==null)
             throw new OWChatException("Invalid user name");
         return (currentUser.addFriend(friend) && friend.addFriend(currentUser)) ;
@@ -115,10 +113,10 @@ public class ChatSystem {
     public boolean removeFriend(String friendName, String keyString) throws OWChatException{
         if ( (friendName==null) || (keyString==null))
             throw new OWChatException("Friend name or keyString cannot be null");
-        User currentUser = getUserByKeyString(keyString);
+        User currentUser = UserManager.GetUserByKeyString(keyString);
         if (currentUser==null)
            throw new OWChatException("Invalid keyString");
-        User friend = getUserByName(friendName);
+        User friend = UserManager.GetUserByName(friendName);
         if (friend==null)
             throw new OWChatException("Invalid user name");
         return (currentUser.removeFriend(friend) && friend.removeFriend(currentUser)) ;
@@ -130,15 +128,15 @@ public class ChatSystem {
         if ( (friendName==null) || (msgBody==null) || (keyString==null) )
             return false;
 
-        User currentUser = getUserByKeyString(keyString);
-        User friend = getUserByName(friendName);
+        User currentUser = UserManager.GetUserByKeyString(keyString);
+        User friend = UserManager.GetUserByName(friendName);
         
         if (currentUser==null)
             throw new OWChatException("Invalid key string.");
         if (friend==null)
             throw new OWChatException("No such user in the friends list.");
 
-        if (friend.isOnline()==false)
+        if (friend.getOnline()==false)
             throw new OWChatException("Offline users cannot receive messages.");
 
         if (currentUser.isFriendsWtih(friend)){
@@ -152,7 +150,7 @@ public class ChatSystem {
     }
 
     public Message[] receiveMessages(String keyString) throws OWChatException{
-        User receiver = getUserByKeyString(keyString);
+        User receiver = UserManager.GetUserByKeyString(keyString);
         if (receiver==null)
             throw new OWChatException("Invalid keyString");
         //return messageQueue.removeMessages(receiver);
@@ -160,29 +158,9 @@ public class ChatSystem {
     }
 
     public boolean unregisterUser(String keyString) throws OWChatException{
-        User user = getUserByKeyString(keyString);
+        User user = UserManager.GetUserByKeyString(keyString);
         if (user==null)
             throw new OWChatException("Invalid keyString");
-
-        return users.remove(user);
-    }
-
-    private User getUserByKeyString(String keyString){
-        for (User user : users) {
-            if (user.getKeyString().equals(keyString))
-                return user;
-        }
-        return null;
-    }
-
-    private User getUserByName(String userName){
-        for (User user : users) {
-            if (user.getUserName().equals(userName))
-                return user;
-        }
-        return null;
-    }
-
-    
-
+        return UserManager.RemoveUser(user);
+    }   
 }
