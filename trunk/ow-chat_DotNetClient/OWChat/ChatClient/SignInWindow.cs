@@ -20,8 +20,7 @@ namespace ChatClient
         private void signInFrm_Load(object sender, EventArgs e)
         {
             //new frmMessageWindow("temp").Show();      // for testing
-            bool val;
-            //GlobalConfig.ChatService.resetChatServer(out val, out val);
+            
         }
 
         private void signInBtn_Click(object sender, EventArgs e)
@@ -39,6 +38,8 @@ namespace ChatClient
                 //child.Show(); //show child
                 //this.Hide(); //hide parent
                 String sessionKey = "";
+                this.Text += " : Signing in...";
+                this.Enabled = false;
                 try
                 {
                     sessionKey = GlobalConfig.ChatService.signIn(userId, password);
@@ -48,6 +49,8 @@ namespace ChatClient
                         tbUserID.Text = "";
                         tbPassword.Text = "";
                         tbUserID.Focus();
+                        this.Text = "OW-Chat";
+                        this.Enabled = true;
                     }
                     else
                     {
@@ -61,6 +64,11 @@ namespace ChatClient
                 catch (Exception ex)
                 {
                     MessageBox.Show("Sign In Error : " + ex.Message);
+                    tbUserID.Text = "";
+                    tbPassword.Text = "";
+                    tbUserID.Focus();
+                    this.Text = "OW-Chat";
+                    this.Enabled = true;
                 }
 
             }
@@ -82,6 +90,22 @@ namespace ChatClient
         {
             if (e.KeyCode==Keys.Return)
                 signInBtn_Click(null, null);
+
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                bool val;
+                GlobalConfig.ChatService.resetChatServer(out val, out val);
+                if (val)
+                    MessageBox.Show("Done");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error : " + ex.Message);
+            }
 
         }
 
