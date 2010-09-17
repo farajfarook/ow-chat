@@ -143,6 +143,7 @@
             this.btnReset.TabIndex = 9;
             this.btnReset.Text = "Server Reset";
             this.btnReset.UseVisualStyleBackColor = true;
+            this.btnReset.Visible = false;
             this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
             // frmSignInWindow
