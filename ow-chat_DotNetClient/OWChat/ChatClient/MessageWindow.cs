@@ -30,6 +30,11 @@ namespace ChatClient
             this.sFriendName = friendName;
         }
 
+        public frmMessageWindow()
+        {
+
+        }
+
 
         private void sendBtn_Click(object sender, EventArgs e)
         {
