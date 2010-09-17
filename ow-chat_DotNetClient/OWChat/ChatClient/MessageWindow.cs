@@ -28,6 +28,7 @@ namespace ChatClient
             InitializeComponent();
             
             this.sFriendName = friendName;
+            this.Text += " : " + friendName;
         }
 
         public frmMessageWindow()
