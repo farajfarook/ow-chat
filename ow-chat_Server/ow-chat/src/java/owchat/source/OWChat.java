@@ -5,7 +5,6 @@
 
 package owchat.source;
 
-import java.util.ArrayList;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;

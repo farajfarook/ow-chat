@@ -3,9 +3,9 @@
   <services/>
   <clients>
     <client name="OWChatService">
-      <wsdl-url>http://localhost:8080/ow-chat/OWChatService?wsdl</wsdl-url>
-      <local-wsdl-file>localhost_8080/ow-chat/OWChatService.wsdl</local-wsdl-file>
-      <package-name forceReplace="true">wstestapp</package-name>
+      <wsdl-url>http://localhost:9090/ow-chat/OWChatService?WSDL</wsdl-url>
+      <local-wsdl-file>localhost_9090/ow-chat/OWChatService.wsdl</local-wsdl-file>
+      <package-name>owchat.source</package-name>
       <catalog-file>catalog.xml</catalog-file>
       <wsimport-options>
         <wsimport-option>
@@ -18,15 +18,11 @@
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>wsdlLocation</wsimport-option-name>
-          <wsimport-option-value>http://localhost:8080/ow-chat/OWChatService?wsdl</wsimport-option-value>
+          <wsimport-option-value>http://localhost:9090/ow-chat/OWChatService?WSDL</wsimport-option-value>
         </wsimport-option>
         <wsimport-option>
           <wsimport-option-name>xendorsed</wsimport-option-name>
           <wsimport-option-value>true</wsimport-option-value>
-        </wsimport-option>
-        <wsimport-option>
-          <wsimport-option-name>package</wsimport-option-name>
-          <wsimport-option-value>wstestapp</wsimport-option-value>
         </wsimport-option>
       </wsimport-options>
     </client>

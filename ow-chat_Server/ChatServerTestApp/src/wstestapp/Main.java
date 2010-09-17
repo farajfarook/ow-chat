@@ -7,6 +7,7 @@ package wstestapp;
 
 import java.net.URL;
 import java.util.List;
+import owchat.source.*;
 
 /**
  *
@@ -21,7 +22,7 @@ public class Main {
      */
     public static void main(String[] args) throws java.lang.Exception {
         try {
-            service = new OWChatService(new URL("http://localhost:8080/ow-chat/OWChatService?wsdl"));
+            service = new OWChatService(new URL("http://localhost:9090/ow-chat/OWChatService?wsdl"));
             OWChat chat = service.getOWChatPort();
 
             chat.resetChatServer();             // deletes all users (use only for testing)
@@ -44,8 +45,8 @@ public class Main {
                 System.out.println(userStr);
             }
             System.out.println();
-
-            System.out.println("Jack adds Jill as a friend : " + chat.addAsFriend("Jill", jacksKey));
+            Boolean val = chat.addAsFriend("Jill", jacksKey);
+            System.out.println("Jack adds Jill as a friend : " + val);
             System.out.println();
 
             System.out.println("Friends of (Jack) " + jacksKey + ":");
@@ -65,11 +66,11 @@ public class Main {
             System.out.println("Jacks -> Jill : Hi Jill  " + chat.sendMessage("Jill", "Hi Jill", jacksKey));
             System.out.println("Jacks -> Jill : Lets go up to the hill..  " + chat.sendMessage("Jill", "Lets go up to the hill..", jacksKey));
             System.out.println();
-            
+
             System.out.println("Messages received by Jill");
             List<Message> msgs = chat.receiveMessages(jillsKey);
             for (Message msg : msgs) {
-                System.out.println("from: " + msg.from + "  Msg: "+ msg.body);
+                System.out.println("from: " + msg.getFrom() + "  Msg: "+ msg.getBody());
             }
             System.out.println();
 

@@ -20,8 +20,8 @@
     </target>
     <target name="wsimport-client-OWChatService" depends="wsimport-init">
         <mkdir dir="${build.generated.dir}/jax-wsCache/OWChatService"/>
-        <property name="wsdl-OWChatService" location="xml-resources/web-service-references/OWChatService/wsdl/localhost_8080/ow-chat/OWChatService.wsdl"/>
-        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/OWChatService" destdir="${build.generated.dir}/jax-wsCache/OWChatService" wsdl="${wsdl-OWChatService}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="http://localhost:8080/ow-chat/OWChatService?wsdl" xendorsed="true" package="wstestapp">
+        <property name="wsdl-OWChatService" location="xml-resources/web-service-references/OWChatService/wsdl/localhost_9090/ow-chat/OWChatService.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/OWChatService" destdir="${build.generated.dir}/jax-wsCache/OWChatService" wsdl="${wsdl-OWChatService}" catalog="catalog.xml" extension="true" verbose="true" wsdlLocation="http://localhost:9090/ow-chat/OWChatService?WSDL" xendorsed="true">
             <depends file="${wsdl-OWChatService}"/>
             <produces dir="${build.generated.dir}/jax-wsCache/OWChatService"/>
         </wsimport>
@@ -33,7 +33,7 @@
     </target>
     <target name="wsimport-client-clean-OWChatService" depends="-init-project">
         <delete dir="${build.generated.dir}/jax-wsCache/OWChatService"/>
-        <delete dir="${build.generated.sources.dir}/jax-ws/wstestapp"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/owchat/source"/>
     </target>
     <target name="wsimport-client-generate" depends="wsimport-client-OWChatService"/>
 </project>
