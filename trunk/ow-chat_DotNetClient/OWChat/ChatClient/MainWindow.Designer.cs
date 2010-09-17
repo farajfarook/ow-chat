@@ -32,7 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMainWindow));
             this.lvFriends = new System.Windows.Forms.ListView();
             this.imageListSmall = new System.Windows.Forms.ImageList(this.components);
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.tmrReceiver = new System.Windows.Forms.Timer(this.components);
             this.bgwMessageListener = new System.ComponentModel.BackgroundWorker();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnSignOut = new System.Windows.Forms.Button();
@@ -41,7 +41,6 @@
             this.signOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.friendsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addFriendToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.button1 = new System.Windows.Forms.Button();
             this.menuStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -72,9 +71,10 @@
             this.imageListSmall.Images.SetKeyName(3, "buddy.JPG");
             this.imageListSmall.Images.SetKeyName(4, "buddy_offline.jpg");
             // 
-            // timer1
+            // tmrReceiver
             // 
-            this.timer1.Interval = 200;
+            this.tmrReceiver.Interval = 2000;
+            this.tmrReceiver.Tick += new System.EventHandler(this.tmrReceiver_Tick);
             // 
             // bgwMessageListener
             // 
@@ -143,22 +143,11 @@
             this.addFriendToolStripMenuItem.Text = "Add Friend";
             this.addFriendToolStripMenuItem.Click += new System.EventHandler(this.addFriendToolStripMenuItem_Click);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(69, 77);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // frmMainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(207, 409);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnSignOut);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.lvFriends);
@@ -181,7 +170,7 @@
         #endregion
 
         private System.Windows.Forms.ListView lvFriends;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer tmrReceiver;
         private System.ComponentModel.BackgroundWorker bgwMessageListener;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnSignOut;
@@ -191,7 +180,6 @@
         private System.Windows.Forms.ToolStripMenuItem signOutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem friendsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addFriendToolStripMenuItem;
-        private System.Windows.Forms.Button button1;
     }
 }
 
