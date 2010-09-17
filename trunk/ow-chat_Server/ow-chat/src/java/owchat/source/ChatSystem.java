@@ -79,6 +79,7 @@ public class ChatSystem {
             throw new OWChatException("User is already online. Automatic signout feature not yet implemented");
         else{
             user.setOnline(true);
+            UserManager.LoginUser(user);
             return user.generateKeyString();
         }
     }
@@ -92,6 +93,7 @@ public class ChatSystem {
         if (currentUser.getOnline()){
             currentUser.generateKeyString();
             currentUser.setOnline(false);
+            UserManager.LogoutUser(currentUser);
         }else
             throw new OWChatException("User is not online");
         return true;
@@ -165,7 +167,11 @@ public class ChatSystem {
 
     public String[] searchUser(String searchContent) throws OWChatException{
         User[] users = UserManager.Search(searchContent);
-        String[] strs = new String[users.length];
+        String[] strs = new String[0];
+        if(users != null)
+        {
+            strs = new String[users.length];
+        }
         for (int i= 0; i < strs.length; i++) {
             strs[i] = users[i].toString();
         }

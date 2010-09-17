@@ -16,7 +16,7 @@ import sun.security.provider.MD5;
  *
  * @author Hirantha Neranjan
  */
-public class User {
+public class User implements java.io.Serializable {
 
     private String userName;
     private String password;
@@ -88,12 +88,13 @@ public class User {
         return false;
     }
 
-//    @Override
-//    public int hashCode() {
-//        int hash = 7;
-//        hash = 37 * hash + (this.userName != null ? this.userName.hashCode() : 0);
-//        return hash;
-//    }
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 37 * hash + (this.userName != null ? this.userName.hashCode() : 0);
+        return hash;
+    }
+
     public String getKeyString() {
         return keyString;
     }
