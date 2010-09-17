@@ -206,4 +206,56 @@ public class UserManager {
             throw new RuntimeException(e);
         }
     }
+
+    public static boolean AddFriend(User user,User friend)
+    {
+        Boolean resultBool = (user.addFriend(friend) && friend.addFriend(user));
+        return resultBool;
+//        if(!resultBool) return false;
+//        SessionFactory sessionFactory = OwChatHibernateUtil.getSessionFactory();
+//        Session session = sessionFactory.getCurrentSession();
+//        Transaction tx = null;
+//        try {
+//            tx = session.beginTransaction();
+//            session.update(user);
+//            session.update(friend);
+//            tx.commit();
+//            return true;
+//        } catch (RuntimeException exception) {
+//            if (tx != null && tx.isActive()) {
+//                try {
+//                    tx.rollback();
+//                } catch (HibernateException e1) {
+//                    throw exception;
+//                }
+//            }
+//            return false;
+//        }
+    }
+
+    public static boolean RemoveFriend(User user,User friend)
+    {
+        Boolean resultBool = (user.removeFriend(friend) && friend.removeFriend(user));
+        return resultBool;
+//        if(!resultBool) return false;
+//        SessionFactory sessionFactory = OwChatHibernateUtil.getSessionFactory();
+//        Session session = sessionFactory.getCurrentSession();
+//        Transaction tx = null;
+//        try {
+//            tx = session.beginTransaction();
+//            session.update(user);
+//            session.update(friend);
+//            tx.commit();
+//            return true;
+//        } catch (RuntimeException exception) {
+//            if (tx != null && tx.isActive()) {
+//                try {
+//                    tx.rollback();
+//                } catch (HibernateException e1) {
+//                    throw exception;
+//                }
+//            }
+//            return false;
+//        }
+    }
 }

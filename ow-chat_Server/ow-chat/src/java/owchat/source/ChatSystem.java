@@ -5,7 +5,6 @@
 
 package owchat.source;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -41,11 +40,15 @@ public class ChatSystem {
     }
 
     public String[] getAllFriends(String keyString) throws OWChatException{
+        String[] strs = new String[0];
         User user = UserManager.GetUserByKeyString(keyString);
         if (user==null)
             throw new OWChatException("Invalid user name");
         Set<User> friends = user.getFriends();
-        String[] strs = new String[friends.size()];
+
+        if (friends == null) return strs;
+
+        strs = new String[friends.size()];
         Iterator<User> friendIterator = friends.iterator();
         for (int i= 0; i < strs.length; i++) {
             User frnd = friendIterator.next();
@@ -109,7 +112,7 @@ public class ChatSystem {
         User friend = UserManager.GetUserByName(friendName);
         if (friend==null)
             throw new OWChatException("Invalid user name");
-        return (currentUser.addFriend(friend) && friend.addFriend(currentUser)) ;
+        return (UserManager.AddFriend(currentUser, friend)) ;
     }
 
     public boolean removeFriend(String friendName, String keyString) throws OWChatException{
@@ -121,7 +124,7 @@ public class ChatSystem {
         User friend = UserManager.GetUserByName(friendName);
         if (friend==null)
             throw new OWChatException("Invalid user name");
-        return (currentUser.removeFriend(friend) && friend.removeFriend(currentUser)) ;
+        return (UserManager.RemoveFriend(currentUser, friend)) ;
     }
 
 
@@ -137,7 +140,6 @@ public class ChatSystem {
             throw new OWChatException("Invalid key string.");
         if (friend==null)
             throw new OWChatException("No such user in the friends list.");
-
         if (friend.getOnline()==false)
             throw new OWChatException("Offline users cannot receive messages.");
 
@@ -156,7 +158,11 @@ public class ChatSystem {
         if (receiver==null)
             throw new OWChatException("Invalid keyString");
         //return messageQueue.removeMessages(receiver);
-        return receiver.getWaitingMessages();
+        Set<Message> msgs = receiver.getWaitingMessages();
+        if(msgs == null) return null;
+        Message[] messages  = msgs.toArray(new Message[0]);
+        receiver.clearMessage();
+        return messages;
     }
 
     public boolean unregisterUser(String keyString) throws OWChatException{

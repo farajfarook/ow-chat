@@ -32,6 +32,22 @@ public class User implements java.io.Serializable {
         waitingMessages = new HashSet<Message>();
     }
 
+    public Set<User> getFriends() {
+        return friends;
+    }
+
+    public boolean isOnline() {
+        return online;
+    }
+
+    public Set<Message> getWaitingMessages() {
+        return waitingMessages;
+    }
+
+    public void setKeyString(String keyString) {
+        this.keyString = keyString;
+    }
+
     public User(String userName, String pasword) {
         this();
         this.userName = userName;
@@ -60,23 +76,14 @@ public class User implements java.io.Serializable {
         return friends.contains(friend);
     }
 
-    public Set getFriends() {
-        return friends;
-    }
-
     public boolean insertMessage(Message newMsg){
         waitingMessages.add(newMsg);
         return true;
     }
 
-    public Message[] getWaitingMessages(){
-        Message[] messages = new Message[waitingMessages.size()];
-        Iterator<Message> it = waitingMessages.iterator();
-        for (int i=0; i< messages.length;i++) {
-            messages[i] = it.next();
-        }
+    public void clearMessage()
+    {
         waitingMessages.clear();
-        return messages;
     }
 
     @Override
