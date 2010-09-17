@@ -45,9 +45,10 @@ namespace ChatClient
                 {
                    
                     //chat.sendMessage(Form1.Me,sendMsgRtb.Rtf,user);
-                    //GlobalConfig.ChatService.sendMessage(sFriendName, sendMsgRtb.Rtf,Form1.Me, out frn, out msg);
+                    bool result, gotRes;
+                    GlobalConfig.ChatService.sendMessage(sFriendName, sendMsgRtb.Text,GlobalConfig.SessionKey, out result, out gotRes);
                     messageRtb.SelectedText= GlobalConfig.DisplayName +": ";  //Set DisplayName in the main window
-                    messageRtb.SelectedRtf=sendMsgRtb.Rtf;
+                    messageRtb.SelectedRtf = sendMsgRtb.Rtf;
                     messageRtb.ScrollToCaret();
                     sendMsgRtb.Clear();
                     sendMsgRtb.Focus();
@@ -55,7 +56,7 @@ namespace ChatClient
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.StackTrace);
+                MessageBox.Show("Message send error : " + ex.Message);
             }
          }
 
@@ -188,7 +189,9 @@ namespace ChatClient
         {
             //you got a chat message from the other end..
             //display it in the window as appropriate
-           
+            messageRtb.SelectedText = sFriendName + ": ";
+            messageRtb.SelectedText = message;
+            messageRtb.ScrollToCaret();
             
         }
 
@@ -286,6 +289,11 @@ namespace ChatClient
                 //messageRtb.Font.Size=16;
             
           }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            receiveMessage("Dumy Message Received");
+        }
 
             
     }
