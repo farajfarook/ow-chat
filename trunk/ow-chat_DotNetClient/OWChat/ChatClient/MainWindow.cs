@@ -234,6 +234,7 @@ namespace ChatClient
                 {
                     tmrReceiver.Stop();
                     GlobalConfig.UserSignedIn = false;
+                    GlobalConfig.mainWindow.lvFriends.Clear();
                     return result;
                 }
             }
