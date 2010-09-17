@@ -85,6 +85,7 @@
             this.tbConfPassword.Name = "tbConfPassword";
             this.tbConfPassword.Size = new System.Drawing.Size(156, 20);
             this.tbConfPassword.TabIndex = 5;
+            this.tbConfPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbConfPassword_KeyDown);
             // 
             // btnSignup
             // 
