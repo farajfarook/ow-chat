@@ -64,10 +64,11 @@ namespace ChatClient
                     MessageBox.Show("Sign In Error : " + ex.Message,"ow-chat",MessageBoxButtons.OK,MessageBoxIcon.Error);
                     tbUserID.Text = "";
                     tbPassword.Text = "";
+                    
+                    tbUserID.SelectAll();
                     tbUserID.Focus();
                     this.Text = "OW-Chat";
                     this.Enabled = true;
-                    throw;
                 }
 
             }

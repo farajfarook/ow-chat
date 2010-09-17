@@ -70,7 +70,7 @@
             this.tbUserID.Location = new System.Drawing.Point(194, 74);
             this.tbUserID.Name = "tbUserID";
             this.tbUserID.Size = new System.Drawing.Size(100, 20);
-            this.tbUserID.TabIndex = 2;
+            this.tbUserID.TabIndex = 0;
             // 
             // tbPassword
             // 
@@ -78,7 +78,7 @@
             this.tbPassword.Name = "tbPassword";
             this.tbPassword.PasswordChar = '*';
             this.tbPassword.Size = new System.Drawing.Size(100, 20);
-            this.tbPassword.TabIndex = 3;
+            this.tbPassword.TabIndex = 1;
             this.tbPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbPassword_KeyDown);
             this.tbPassword.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tbPassword_MouseDown);
             // 
@@ -89,7 +89,7 @@
             this.signInBtn.Location = new System.Drawing.Point(126, 161);
             this.signInBtn.Name = "signInBtn";
             this.signInBtn.Size = new System.Drawing.Size(75, 23);
-            this.signInBtn.TabIndex = 4;
+            this.signInBtn.TabIndex = 2;
             this.signInBtn.Text = "Sign In";
             this.signInBtn.UseVisualStyleBackColor = false;
             this.signInBtn.Click += new System.EventHandler(this.signInBtn_Click);
@@ -101,7 +101,7 @@
             this.btnSignUp.Location = new System.Drawing.Point(219, 161);
             this.btnSignUp.Name = "btnSignUp";
             this.btnSignUp.Size = new System.Drawing.Size(75, 23);
-            this.btnSignUp.TabIndex = 5;
+            this.btnSignUp.TabIndex = 3;
             this.btnSignUp.Text = "Sign Up";
             this.btnSignUp.UseVisualStyleBackColor = false;
             this.btnSignUp.Click += new System.EventHandler(this.btnSignUp_Click);

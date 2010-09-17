@@ -106,7 +106,7 @@ namespace ChatClient
                 //{
                 //    bgwMessageListener.RunWorkerAsync();
                 //}
-                this.Text += " - " + GlobalConfig.DisplayName;
+                this.Text = "Ow-Chat  [ " + GlobalConfig.DisplayName + " ]";
 
                 tmrReceiver.Start();
 
@@ -241,6 +241,7 @@ namespace ChatClient
                     tmrReceiver.Stop();
                     GlobalConfig.UserSignedIn = false;
                     GlobalConfig.mainWindow.lvFriends.Clear();
+                    GlobalConfig.mainWindow.Text = "Ow-Chat";
                     return result;
                 }
             }

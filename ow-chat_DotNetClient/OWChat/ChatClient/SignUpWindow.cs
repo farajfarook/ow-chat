@@ -87,7 +87,6 @@ namespace ChatClient
                 this.Enabled = true;
                 tbPassword.Text = "";
                 tbConfPassword.Text = "";
-                throw;
             }
             
         }
