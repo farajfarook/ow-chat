@@ -56,6 +56,7 @@ namespace ChatClient
 
         private frmMessageWindow[] chatWindows;
         private String[] friends;
+        private bool[] friendStatus;
 
         public frmMainWindow()
         {
@@ -70,17 +71,30 @@ namespace ChatClient
             if (friendsList != null)
             {
                 this.friends = new string[friendsList.Length];
+                this.friendStatus = new bool[friendsList.Length];
+
                 for (int i = 0; i < friendsList.Length; i++)
                 {
                     string[] values = splitUserInformation(friendsList[i]);
                     this.friends[i] = values[0];
+                    this.friendStatus[i] = Boolean.Parse(values[3]);
                 }
             }
 
-            foreach (String name in this.friends)
+            for (int i = 0; i < friends.Length; i++)
             {
-                lvFriends.Items.Add(name);
-                lvFriends.Items[lvFriends.Items.Count - 1].ImageIndex = 3;
+                
+                if (friendStatus[i])
+                {
+                    lvFriends.Items.Add(friends[i]);
+                    lvFriends.Items[lvFriends.Items.Count - 1].ImageIndex = 3;
+                }
+                else
+                {
+                    lvFriends.Items.Add(friends[i] + " - offline");
+                    lvFriends.Items[lvFriends.Items.Count - 1].ImageIndex = 4;
+                }
+                
             }
 
             chatWindows = new frmMessageWindow[friends.Length];
@@ -202,6 +216,11 @@ namespace ChatClient
         private void lvFriends_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             int offest = lvFriends.SelectedIndices[0];
+
+            if (!friendStatus[offest])
+            {
+                //return // temp disabled
+            }
 
             if (chatWindows[offest] == null)
             {
