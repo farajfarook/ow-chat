@@ -5,6 +5,8 @@
 package owchat.source;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  *
@@ -16,13 +18,12 @@ public class User {
     private String password;
     private boolean online;
     private String keyString;
-    private ArrayList<User> friends;
-    private ArrayList<Message> waitingMessages;
+    private Set<User> friends;
+    private Set<Message> waitingMessages;
+
 
     public User() {
         online = false;
-        friends = new ArrayList<User>();
-        waitingMessages = new ArrayList<Message>();
     }
 
     public User(String userName, String pasword) {
@@ -49,14 +50,14 @@ public class User {
     }
 
     public boolean isFriendsWtih(User friend) {
-        if (friends.indexOf(friend) < 0) {
+        if (friends.contains(friend)) {
             return false;
         } else {
             return true;
         }
     }
 
-    public ArrayList getFriends() {
+    public Set getFriends() {
         return friends;
     }
 
@@ -66,11 +67,12 @@ public class User {
     }
 
     public Message[] getWaitingMessages(){
-        Message[] msgs = new Message[waitingMessages.size()];
-        for (int i= 0; i < msgs.length; i++) {
-            msgs[i] = waitingMessages.get(i);
+        Message[] messages = new Message[waitingMessages.size()];
+        Iterator<Message> it = waitingMessages.iterator();
+        for (int i=0; i< messages.length;i++) {
+            messages[i] = it.next();
         }
-        return msgs;
+        return messages;
     }
 
     @Override
@@ -91,6 +93,14 @@ public class User {
 //    }
     public String getKeyString() {
         return keyString;
+    }
+
+    public void setFriends(Set<User> friends) {
+        this.friends = friends;
+    }
+
+    public void setWaitingMessages(Set<Message> waitingMessages) {
+        this.waitingMessages = waitingMessages;
     }
 
     public String generateKeyString() {
@@ -130,7 +140,7 @@ public class User {
     /**
      * @return the Online
      */
-    public boolean isOnline() {
+    public boolean getOnline() {
         return online;
     }
 
@@ -140,4 +150,17 @@ public class User {
     public void setOnline(boolean Online) {
         this.online = Online;
     }
+
+    @Override
+    public String toString() {
+        return getUserName()
+               + " " +
+               getPassword()
+               + " " +
+               getKeyString()
+               + " " +
+               getOnline();
+    }
+
+
 }
