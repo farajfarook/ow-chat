@@ -76,6 +76,7 @@
             // 
             this.tbPassword.Location = new System.Drawing.Point(127, 53);
             this.tbPassword.Name = "tbPassword";
+            this.tbPassword.PasswordChar = '*';
             this.tbPassword.Size = new System.Drawing.Size(156, 20);
             this.tbPassword.TabIndex = 4;
             // 
@@ -83,6 +84,7 @@
             // 
             this.tbConfPassword.Location = new System.Drawing.Point(127, 79);
             this.tbConfPassword.Name = "tbConfPassword";
+            this.tbConfPassword.PasswordChar = '*';
             this.tbConfPassword.Size = new System.Drawing.Size(156, 20);
             this.tbConfPassword.TabIndex = 5;
             this.tbConfPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbConfPassword_KeyDown);
@@ -126,6 +128,8 @@
             this.Name = "frmSignUpWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ow-chat Sign Up";
+            this.Load += new System.EventHandler(this.frmSignUpWindow_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmSignUpWindow_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
