@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import sun.security.provider.MD5;
 
 /**
  *
@@ -156,10 +157,6 @@ public class User {
     @Override
     public String toString() {
         return getUserName()
-               + " " +
-               getPassword()
-               + " " +
-               getKeyString()
                + " " +
                getOnline();
     }

@@ -62,8 +62,7 @@ public class ChatSystem {
     public boolean registerUser(String userName, String password) throws OWChatException{
         if ( (userName==null) || (password==null))
             return false;
-        User newUser = new User(userName,password);
-        if (!UserManager.AddUser(newUser))
+        if (!UserManager.AddUser(userName,password))
             throw new OWChatException("User already exists.");
         return true;
     }
@@ -74,7 +73,7 @@ public class ChatSystem {
         User user = UserManager.GetUserByName(userName);
         if (user==null)
             throw new OWChatException("Invalid user name");
-        if (!user.getPassword().equals(password))
+        if (!user.getPassword().equals(UserManager.GetMd5Digest(password)))
             throw new OWChatException("Incorrect password");
         if (user.getOnline())
             throw new OWChatException("User is already online. Automatic signout feature not yet implemented");
