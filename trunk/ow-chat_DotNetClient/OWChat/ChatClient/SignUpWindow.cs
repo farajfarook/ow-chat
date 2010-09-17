@@ -80,6 +80,9 @@ namespace ChatClient
             catch (Exception ex)
             {
                 MessageBox.Show("SignUp Error : " + ex.Message);
+                this.Enabled = true;
+                tbPassword.Text = "";
+                tbConfPassword.Text = "";
             }
             
         }
@@ -88,5 +91,13 @@ namespace ChatClient
         {
 
         }
+
+        private void tbConfPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Return)
+                btnSignup_Click(null, null);
+        }
+
+
     }
 }
