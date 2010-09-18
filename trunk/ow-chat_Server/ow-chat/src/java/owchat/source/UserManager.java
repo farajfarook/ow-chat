@@ -9,6 +9,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -209,53 +210,74 @@ public class UserManager {
 
     public static boolean AddFriend(User user,User friend)
     {
-        Boolean resultBool = (user.addFriend(friend) && friend.addFriend(user));
-        return resultBool;
-//        if(!resultBool) return false;
-//        SessionFactory sessionFactory = OwChatHibernateUtil.getSessionFactory();
-//        Session session = sessionFactory.getCurrentSession();
-//        Transaction tx = null;
-//        try {
-//            tx = session.beginTransaction();
-//            session.update(user);
-//            session.update(friend);
-//            tx.commit();
-//            return true;
-//        } catch (RuntimeException exception) {
-//            if (tx != null && tx.isActive()) {
-//                try {
-//                    tx.rollback();
-//                } catch (HibernateException e1) {
-//                    throw exception;
-//                }
-//            }
-//            return false;
-//        }
+        SessionFactory sessionFactory = OwChatHibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            user.addFriend(friend);
+            friend.addFriend(user);
+            session.update(user);
+            session.update(friend);
+            tx.commit();
+            return true;
+        } catch (RuntimeException exception) {
+            if (tx != null && tx.isActive()) {
+                try {
+                    tx.rollback();
+                } catch (HibernateException e1) {
+                    throw exception;
+                }
+            }
+            return false;
+        }
     }
 
     public static boolean RemoveFriend(User user,User friend)
     {
-        Boolean resultBool = (user.removeFriend(friend) && friend.removeFriend(user));
-        return resultBool;
-//        if(!resultBool) return false;
-//        SessionFactory sessionFactory = OwChatHibernateUtil.getSessionFactory();
-//        Session session = sessionFactory.getCurrentSession();
-//        Transaction tx = null;
-//        try {
-//            tx = session.beginTransaction();
-//            session.update(user);
-//            session.update(friend);
-//            tx.commit();
-//            return true;
-//        } catch (RuntimeException exception) {
-//            if (tx != null && tx.isActive()) {
-//                try {
-//                    tx.rollback();
-//                } catch (HibernateException e1) {
-//                    throw exception;
-//                }
-//            }
-//            return false;
-//        }
+        SessionFactory sessionFactory = OwChatHibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            user.removeFriend(friend);
+            friend.removeFriend(user);
+            session.update(user);
+            session.update(friend);
+            tx.commit();
+            return true;
+        } catch (RuntimeException exception) {
+            if (tx != null && tx.isActive()) {
+                try {
+                    tx.rollback();
+                } catch (HibernateException e1) {
+                    throw exception;
+                }
+            }
+            return false;
+        }
+    }
+
+    static Set<User> getFriends(User user)
+    {
+        SessionFactory sessionFactory = OwChatHibernateUtil.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            Set<User> users = user.getFriends();
+            tx.commit();
+            return users;
+        } catch (RuntimeException exception) {
+            if (tx != null && tx.isActive()) {
+                try {
+                    tx.rollback();
+                } catch (HibernateException e1) {
+                    throw exception;
+                }
+            }
+            return null;
+        }
     }
 }
+

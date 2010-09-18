@@ -44,7 +44,8 @@ public class ChatSystem {
         User user = UserManager.GetUserByKeyString(keyString);
         if (user==null)
             throw new OWChatException("Invalid user name");
-        Set<User> friends = user.getFriends();
+
+        Set<User> friends = UserManager.getFriends(user);
 
         if (friends == null) return strs;
 
