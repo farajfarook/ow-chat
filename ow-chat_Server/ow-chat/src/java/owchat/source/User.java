@@ -4,13 +4,9 @@
  */
 package owchat.source;
 
-import java.util.AbstractSet;
-import java.util.EnumSet;
+
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
 import java.util.Set;
-import sun.security.provider.MD5;
 
 /**
  *
@@ -22,14 +18,12 @@ public class User implements java.io.Serializable {
     private String password;
     private boolean online;
     private String keyString;
-    private Set<User> friends;
-    private Set<Message> waitingMessages;
+    private Set<User> friends = new HashSet<User>(0);
+    private Set<Message> waitingMessages = new HashSet<Message>(0);
 
 
     public User() {
         online = false;
-        friends = new HashSet<User>();
-        waitingMessages = new HashSet<Message>();
     }
 
     public Set<User> getFriends() {
