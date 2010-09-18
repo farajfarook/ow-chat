@@ -142,7 +142,7 @@ public class ChatSystem {
         if (currentUser.isFriendsWtih(friend)){
             Message msg = new Message(friendName, msgBody, currentUser.getUserName());
             //messageQueue.addMessage(msg);
-            friend.insertMessage(msg);
+            UserManager.SendMsg(friend.getUserName(),msg);
         }else{
             throw new OWChatException("Receiver is not a friend of sender.");
         }

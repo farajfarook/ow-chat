@@ -64,7 +64,11 @@ public class UserManager {
             List<User> userList = session.createQuery("select u from User as u where u.userName='"+userName+"'").list();
             tx.commit();
             if(userList.size()>0)
-                return userList.get(0);
+            {
+                User tempUser = userList.get(0);
+                tempUser.setOnline(isLoggedIn(tempUser.getUserName()));
+                return tempUser;
+            }
             else
                 return null;
         } catch (RuntimeException exception) {
@@ -313,6 +317,16 @@ public class UserManager {
                 }
             }
             return null;
+        }
+    }
+
+    static void SendMsg(String username, Message msg) {
+        for (int i = 0; i < users.size(); i++) {
+            if(users.get(i).getUserName().equals(username))
+            {
+                users.get(i).insertMessage(msg);
+                return;
+            }
         }
     }
 }
