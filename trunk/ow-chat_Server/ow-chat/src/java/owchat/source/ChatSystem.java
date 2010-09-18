@@ -4,8 +4,6 @@
  */
 
 package owchat.source;
-
-import java.util.Iterator;
 import java.util.Set;
 
 
@@ -45,15 +43,13 @@ public class ChatSystem {
         if (user==null)
             throw new OWChatException("Invalid user name");
 
-        Set<User> friends = UserManager.getFriends(user);
+        User[] friends = UserManager.getFriends(user);
 
         if (friends == null) return strs;
 
-        strs = new String[friends.size()];
-        Iterator<User> friendIterator = friends.iterator();
-        for (int i= 0; i < strs.length; i++) {
-            User frnd = friendIterator.next();
-            strs[i] = frnd.toString();
+        strs = new String[friends.length];
+        for (int i = 0; i < friends.length; i++) {
+            strs[i] = friends[i].toString();
         }
         return strs;
     }
@@ -84,8 +80,7 @@ public class ChatSystem {
             throw new OWChatException("User is already online. Automatic signout feature not yet implemented");
         else{
             user.setOnline(true);
-            UserManager.LoginUser(user);
-            return user.generateKeyString();
+            return UserManager.LoginUser(user);
         }
     }
 

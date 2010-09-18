@@ -8,6 +8,7 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import org.hibernate.HibernateException;
@@ -23,14 +24,26 @@ public class UserManager {
 
     private static ArrayList<User> users = new ArrayList<User>();
 
-    public static void LoginUser(User user)
+    public static String LoginUser(User user)
     {
+        for (Iterator<User> it = users.iterator(); it.hasNext();) {
+            User tempUser = it.next();
+            if(tempUser.equals(user)) return tempUser.getKeyString();
+        }
         users.add(user);
+        return user.generateKeyString();
     }
 
     public static void LogoutUser(User user)
     {
-        users.remove(user);
+        for (Iterator<User> it = users.iterator(); it.hasNext();) {
+            User tempUser = it.next();
+            if(tempUser.equals(user))
+            {
+                users.remove(user);
+                return;
+            }
+        }
     }
 
     public static User GetUserByKeyString(String keyString) {
@@ -145,15 +158,28 @@ public class UserManager {
         }
     }
 
+    public static boolean isLoggedIn(String username)
+    {
+        for (Iterator<User> it = users.iterator(); it.hasNext();) {
+            User user = it.next();
+            if(user.getUserName().equals(username)) return true;
+        }
+        return false;
+    }
+
     public static User[] GetUsers() {
         SessionFactory sessionFactory = OwChatHibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            List userList = session.createQuery("select u from User as u").list();
+            List<User> userList = session.createQuery("select u from User as u").list();
             tx.commit();
-            return toUserArray(userList);
+            User[] userArr = toUserArray(userList);
+            for (int i = 0; i < userArr.length; i++) {
+               userArr[i].setOnline(isLoggedIn(userArr[i].getUserName()));
+            }
+            return userArr;
         } catch (RuntimeException exception) {
             if (tx != null && tx.isActive()) {
                 try {
@@ -172,9 +198,13 @@ public class UserManager {
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            List userList = session.createQuery("select u from User as u where u.userName like '%"+searchContent+"%'").list();
+            List<User> userList = session.createQuery("select u from User as u where u.userName like '%"+searchContent+"%'").list();
             tx.commit();
-            return toUserArray(userList);
+            User[] userArr = toUserArray(userList);
+            for (int i = 0; i < userArr.length; i++) {
+                userArr[i].setOnline(isLoggedIn(userArr[i].getUserName()));
+            }
+            return userArr;
         } catch (RuntimeException exception) {
             if (tx != null && tx.isActive()) {
                 try {
@@ -258,16 +288,22 @@ public class UserManager {
         }
     }
 
-    static Set<User> getFriends(User user)
+    static User[] getFriends(User user)
     {
         SessionFactory sessionFactory = OwChatHibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction tx = null;
         try {
             tx = session.beginTransaction();
-            Set<User> users = user.getFriends();
+            Set<User> userList = user.getFriends();
             tx.commit();
-            return users;
+            User[] userArr = new User[userList.size()];
+            Iterator<User> userIterator = userList.iterator();
+            for (int i = 0; i < userArr.length; i++) {
+                userArr[i] = userIterator.next();
+                userArr[i].setOnline(isLoggedIn(userArr[i].getUserName()));
+            }
+            return userArr;
         } catch (RuntimeException exception) {
             if (tx != null && tx.isActive()) {
                 try {
