@@ -214,6 +214,11 @@ namespace ChatClient
 
         private void lvFriends_MouseDoubleClick(object sender, MouseEventArgs e)
         {
+            if (lvFriends.SelectedIndices.Count==0)
+            {
+                return;
+            }
+
             int offest = lvFriends.SelectedIndices[0];
 
             if (!friendStatus[offest])
