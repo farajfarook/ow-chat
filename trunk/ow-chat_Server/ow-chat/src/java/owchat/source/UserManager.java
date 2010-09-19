@@ -117,9 +117,10 @@ public class UserManager {
     }
 
     public static Boolean RemoveUser(User newUser) {
-        if (UserExcist(newUser)) {
+        if (!UserExcist(newUser)) {
             return false;
         }
+        LogoutUser(newUser);
         SessionFactory sessionFactory = OwChatHibernateUtil.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         Transaction tx = null;
