@@ -12,13 +12,23 @@ namespace ChatClient
     {
         static SoundPlayer buzzPlayer, signInPlayer, signOutPlayer, msgPlayer;
         static bool doneLoading = false;
+        static String appPath = "";
 
         public static void loadSoundResources()
         {
             try
             {
-                buzzPlayer = new SoundPlayer("c:\\Windows\\Media\\chimes.wav");
+                appPath = Application.StartupPath;
+                
+                buzzPlayer = new SoundPlayer(appPath+ "\\sounds\\beep.wav");
                 buzzPlayer.LoadAsync();
+
+                signInPlayer = new SoundPlayer(appPath + "\\sounds\\online.wav");
+                signInPlayer.LoadAsync();
+
+                signOutPlayer = new SoundPlayer(appPath + "\\sounds\\offline.wav");
+                signOutPlayer.LoadAsync();
+
                 doneLoading = true;
             }
             catch (Exception ex)
@@ -33,6 +43,22 @@ namespace ChatClient
             if (doneLoading)
             {
                 buzzPlayer.Play();
+            }
+        }
+
+        public static void playSignOutSound()
+        {
+            if (doneLoading)
+            {
+                signOutPlayer.Play();
+            }
+        }
+
+        public static void playSignInSound()
+        {
+            if (doneLoading)
+            {
+                signInPlayer.Play();
             }
         }
     }

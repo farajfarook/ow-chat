@@ -19,9 +19,12 @@ namespace ChatClient
         static private frmMessageWindow[] chatWindows;
         private String[] friends;
         private bool[] friendStatus;
+        private bool[] prevFriendsStatus;
         private Thread messageListenerThread;
+        private Thread friendsListenerThread;
 
         private delegate void sendMessageCallback(String friendName, String msg);
+        private delegate void updateFriendsCallback();
 
         public frmMainWindow()
         {
@@ -38,6 +41,10 @@ namespace ChatClient
                 messageListenerThread = new Thread(new ThreadStart(runMessageListener));
                 messageListenerThread.IsBackground = true;
                 messageListenerThread.Start();
+
+                friendsListenerThread = new Thread(new ThreadStart(runFriendsListener));
+                friendsListenerThread.IsBackground = true;
+                friendsListenerThread.Start();
             }
 
             this.Text = "Ow-Chat ~ [" + GlobalConfig.DisplayName + "]";
@@ -46,6 +53,7 @@ namespace ChatClient
 
         public void updateFriends()
         {
+            lvFriends.Items.Clear();
             String[] friendsList=null;
             try
             {
@@ -129,6 +137,32 @@ namespace ChatClient
                     throw;
                 }
                 System.Threading.Thread.Sleep(1000);
+            }
+        }
+
+        private void runFriendsListener()
+        {
+            while (true)
+            {
+                prevFriendsStatus = new bool[friendStatus.Length];
+                friendStatus.CopyTo(prevFriendsStatus, 0);
+                updateFriendsCallback updateFrnds = new updateFriendsCallback(updateFriends);
+                this.Invoke(updateFrnds);
+                for (int i = 0; i < prevFriendsStatus.Length; i++)
+                {
+                    if (prevFriendsStatus[i]!=friendStatus[i])
+                    {
+                        if (friendStatus[i])
+                        {
+                            OWChatSoundPlayer.playSignInSound();
+                        }
+                        else
+                        {
+                            OWChatSoundPlayer.playSignOutSound();
+                        }
+                    }
+                }
+                Thread.Sleep(1000);
             }
         }
 
@@ -229,7 +263,11 @@ namespace ChatClient
                 bool result;
                 GlobalConfig.ChatService.signOut(GlobalConfig.SessionKey, out result, out result);
                 messageListenerThread.Suspend();
+                friendsListenerThread.Suspend();
+                //friendsListenerThread.Abort();
+                //messageListenerThread.Abort();
                 messageListenerThread = null;
+                friendsListenerThread = null;
             }
             catch ( Exception ex)
             {
