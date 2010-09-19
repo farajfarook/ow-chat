@@ -279,7 +279,8 @@ namespace ChatClient
                 {
                     MessageBox.Show("Error in sending chat message : " + ex.Message,"ow-chat",MessageBoxButtons.OK,MessageBoxIcon.Error);
                 }
-
+                Thread.Sleep(250);
+                       
             }
                 
         }
