@@ -14,23 +14,47 @@ namespace ChatClient
 {
     public partial class frmMainWindow : Form
     {
+        private List<frmMessageWindow> chatWindowsList = new List<frmMessageWindow>();
 
         static private frmMessageWindow[] chatWindows;
         private String[] friends;
         private bool[] friendStatus;
         private Thread messageListenerThread;
 
-        private delegate void sendMessageDelegate(int fNo, String msg);
+        private delegate void sendMessageCallback(String friendName, String msg);
 
         public frmMainWindow()
         {
             InitializeComponent();
         }
 
-        public void loadFriendsList()
+        public void initializeMainChatWindow()
         {
             lvFriends.Items.Clear();
-            String[] friendsList = GlobalConfig.ChatService.getAllFriends(GlobalConfig.SessionKey);
+            updateFriends();
+
+            if (messageListenerThread == null)
+            {
+                messageListenerThread = new Thread(new ThreadStart(runMessageListener));
+                messageListenerThread.IsBackground = true;
+                messageListenerThread.Start();
+            }
+
+            this.Text = "Ow-Chat ~ [" + GlobalConfig.DisplayName + "]";
+
+        }
+
+        public void updateFriends()
+        {
+            String[] friendsList=null;
+            try
+            {
+                friendsList = GlobalConfig.ChatService.getAllFriends(GlobalConfig.SessionKey);
+            }
+            catch (Exception)
+            {
+                return;
+            }
             if (friendsList != null)
             {
                 this.friends = new string[friendsList.Length];
@@ -42,7 +66,6 @@ namespace ChatClient
                     this.friends[i] = values[0];
                     this.friendStatus[i] = Boolean.Parse(values[1]);
                 }
-
                 for (int i = 0; i < friends.Length; i++)
                 {
 
@@ -58,16 +81,6 @@ namespace ChatClient
                     }
 
                 }
-
-                chatWindows = new frmMessageWindow[friends.Length];
-
-                if (messageListenerThread==null)
-                {
-                    messageListenerThread = new Thread(new ThreadStart(runMessageListener));
-                    messageListenerThread.IsBackground = true;
-                    messageListenerThread.Start();
-                }
-                this.Text = "Ow-Chat ~ [" + GlobalConfig.DisplayName + "]";
             }
         }
 
@@ -100,7 +113,7 @@ namespace ChatClient
                                 {
                                     sendMessageCallback sndMsg = new sendMessageCallback(sendMessageToChatWindow);
                                     Object[] values = new Object[2];
-                                    values[0] = j;
+                                    values[0] = friends[j];
                                     values[1] = incommingMsgs[i].body;
                                     this.Invoke(sndMsg, values);
                                     break;
@@ -115,7 +128,7 @@ namespace ChatClient
                     MessageBox.Show("Receiving Error : " + ex.Message, "ow-chat", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     throw;
                 }
-                System.Threading.Thread.Sleep(500);
+                System.Threading.Thread.Sleep(1000);
             }
         }
 
@@ -124,28 +137,45 @@ namespace ChatClient
             
         }
 
-        private delegate void sendMessageCallback(int windowNo, String msg);
-
-        private void sendMessageToChatWindow(int windowNo, String msgBody)
+        private void sendMessageToChatWindow(String friendName, String msgBody)
         {
-            String friendName = friends[windowNo];
-            if (chatWindows[windowNo] == null)
+            foreach (frmMessageWindow chatWindow in chatWindowsList)
             {
-                chatWindows[windowNo] = new frmMessageWindow(friendName);
+                if (chatWindow.getFriendsName().Equals(friendName))
+                {
+                    if (chatWindow.IsDisposed)
+                    {
+                        chatWindowsList.Remove(chatWindow);
+                        break;
+                    }
+                    chatWindow.receiveMessage(msgBody);
+                    chatWindow.Refresh();
+                    return;
+                }
             }
-            else
-            {
-                if (chatWindows[windowNo].IsDisposed)
-                    chatWindows[windowNo] = new frmMessageWindow(friendName);
-            }
-            if (chatWindows[windowNo].Visible == false)
-            {
-                chatWindows[windowNo].Show();
-            }
-            chatWindows[windowNo].receiveMessage(msgBody);
-            chatWindows[windowNo].Refresh();
-            chatWindows[windowNo].BringToFront();
-            chatWindows[windowNo].Focus();
+
+            frmMessageWindow newChatWindow = new frmMessageWindow(friendName);
+            newChatWindow.receiveMessage(msgBody);
+            newChatWindow.Show();
+            chatWindowsList.Add(newChatWindow);
+
+            //if (chatWindows[windowNo] == null)
+            //{
+            //    chatWindows[windowNo] = new frmMessageWindow(friendName);
+            //}
+            //else
+            //{
+            //    if (chatWindows[windowNo].IsDisposed)
+            //        chatWindows[windowNo] = new frmMessageWindow(friendName);
+            //}
+            //if (chatWindows[windowNo].Visible == false)
+            //{
+            //    chatWindows[windowNo].Show();
+            //}
+            //chatWindows[windowNo].receiveMessage(msgBody);
+            //chatWindows[windowNo].Refresh();
+            //chatWindows[windowNo].BringToFront();
+            //chatWindows[windowNo].Focus();
         }
 
         private void frmMainWindow_Shown(object sender, EventArgs e)
@@ -226,18 +256,38 @@ namespace ChatClient
                 //return // temp disabled
             }
 
-            if (chatWindows[offest] == null)
+            foreach (frmMessageWindow chatWindow in chatWindowsList)
             {
-                chatWindows[offest] = new frmMessageWindow(friends[offest]);
+                if (chatWindow.getFriendsName().Equals(friends[offest]))
+                {
+                    if (chatWindow.IsDisposed)
+                    {
+                        chatWindowsList.Remove(chatWindow);
+                        break;
+                    }
+                    chatWindow.Visible = true;
+                    chatWindow.BringToFront();
+                    chatWindow.Focus();
+                    return;
+                }
             }
-            else
-            {
-                if (chatWindows[offest].IsDisposed)
-                    chatWindows[offest] = new frmMessageWindow(friends[offest]);
-            }
-            chatWindows[offest].Show();
-            chatWindows[offest].BringToFront();
-            chatWindows[offest].Focus();
+
+            frmMessageWindow newChatWindow = new frmMessageWindow(friends[offest]);
+            chatWindowsList.Add(newChatWindow);
+            newChatWindow.Show();
+
+            //if (chatWindows[offest] == null)
+            //{
+            //    chatWindows[offest] = new frmMessageWindow(friends[offest]);
+            //}
+            //else
+            //{
+            //    if (chatWindows[offest].IsDisposed)
+            //        chatWindows[offest] = new frmMessageWindow(friends[offest]);
+            //}
+            //chatWindows[offest].Show();
+            //chatWindows[offest].BringToFront();
+            //chatWindows[offest].Focus();
 
         }
 
@@ -251,7 +301,7 @@ namespace ChatClient
                  if (res)
                  {
                      MessageBox.Show("Friend Removed","ow-chat",MessageBoxButtons.OK,MessageBoxIcon.Information);
-                     loadFriendsList(); 
+                     updateFriends();
                  }
 
              }

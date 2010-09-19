@@ -73,7 +73,7 @@ namespace ChatClient
                     if (result)
                     {
                         MessageBox.Show("Ow-chat user " + tbFriendName.Text + " added as a friend of you.", "ow-chat",MessageBoxButtons.OK,MessageBoxIcon.Information);
-                        GlobalConfig.mainWindow.loadFriendsList();
+                        GlobalConfig.mainWindow.updateFriends();
                         this.Dispose();
                     }
                     else

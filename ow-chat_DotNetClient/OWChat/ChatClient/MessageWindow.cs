@@ -36,6 +36,11 @@ namespace ChatClient
             this.Text += " with " + friendName;
         }
 
+        public String getFriendsName()
+        {
+            return sFriendName;
+        }
+
         public frmMessageWindow()
         {
 
