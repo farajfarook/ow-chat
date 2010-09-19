@@ -163,7 +163,7 @@
             this.MaximizeBox = false;
             this.Name = "frmMainWindow";
             this.Text = "Ow-Chat";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.frmMainWindow_Load);
             this.Shown += new System.EventHandler(this.frmMainWindow_Shown);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMainWindow_FormClosing);
             this.contextMenuStripMain.ResumeLayout(false);

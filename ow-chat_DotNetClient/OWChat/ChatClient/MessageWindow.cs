@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-
+using System.Threading;
 
 namespace ChatClient
 {
@@ -19,7 +19,10 @@ namespace ChatClient
         // eg: to call sendMessage method use GlobalConfig.ChatService.sendMessage()
 
         private Font selectedFont;
-        public bool frn, msg;    
+        public bool frn, msg;
+
+        private Thread senderThread = null;
+
         // Constructor is modified******
         // When creating an instance from this class, it is a must to give a name of the person
         // at the other end
@@ -39,32 +42,36 @@ namespace ChatClient
 
         private void sendBtn_Click(object sender, EventArgs e)
         {
-            try
+            if (sendMsgRtb.Text.Trim().Length > 0 || sendMsgRtb.Rtf.Trim().Length > 130)
             {
-                if (sendMsgRtb.Text.Trim().Length > 0 || sendMsgRtb.Rtf.Trim().Length > 130)
-                {
-                   
-                    //chat.sendMessage(Form1.Me,sendMsgRtb.Rtf,user);
-                    bool result, gotRes;
-                    GlobalConfig.ChatService.sendMessage(sFriendName, sendMsgRtb.Rtf,GlobalConfig.SessionKey, out result, out gotRes);
-                    messageRtb.SelectedText= GlobalConfig.DisplayName +": ";  //Set DisplayName in the main window
-                    messageRtb.SelectedRtf = sendMsgRtb.Rtf;
-                    messageRtb.ScrollToCaret();
-                    sendMsgRtb.Clear();
-                    sendMsgRtb.Focus();
-                }
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show("Message send error : " + ex.Message);
+                senderThread = new Thread(new ThreadStart(runSendMessage));
+                senderThread.IsBackground = true;
+                senderThread.Start();
+
+                messageRtb.SelectedText = GlobalConfig.DisplayName + ": ";
+                messageRtb.SelectedRtf = sendMsgRtb.Rtf;
+                messageRtb.ScrollToCaret();
+                sendMsgRtb.Clear();
+                sendMsgRtb.Focus();
             }
          }
 
+        private void runSendMessage()
+        {
+            try
+            {
+                bool result, gotRes;
+                GlobalConfig.ChatService.sendMessage(sFriendName, sendMsgRtb.Rtf, GlobalConfig.SessionKey, out result, out gotRes);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error in sending chat message : " + ex.Message);
+            }
+        }
+
         private void MessageFrm_Load(object sender, EventArgs e)
         {
-            //timer1.Enabled = true;    Enable this if its not for receiving mesgs
             panelEmoticons.Visible = false;
-            //chat.Url = "http://" + Form1.strServiceIP + "/ChatService.asmx";
             sendMsgRtb.Focus();
         }
 
@@ -192,7 +199,8 @@ namespace ChatClient
             messageRtb.SelectedText = sFriendName + ": ";
             messageRtb.SelectedRtf = message;
             if (message.Contains("BEEP!!!"))
-                System.Console.Beep();
+                OWChatSoundPlayer.playBuzzSound();
+                //System.Console.Beep();
             messageRtb.ScrollToCaret();
             
         }
@@ -251,10 +259,11 @@ namespace ChatClient
         private void button1_Click(object sender, EventArgs e)
         {
             
-            System.Console.Beep();
+            //System.Console.Beep();
             sendMsgRtb.SelectionFont = new Font("Verdana", 12, FontStyle.Bold);
             sendMsgRtb.SelectionColor = Color.Red;
             sendMsgRtb.SelectedText = "BEEP!!!" + Environment.NewLine;
+            OWChatSoundPlayer.playBuzzSound();
             sendBtn_Click(null, null);
             sendMsgRtb.SelectionFont = new Font("Microsoft Sans Serif", 8, FontStyle.Regular);
             sendMsgRtb.SelectionColor = Color.Black;

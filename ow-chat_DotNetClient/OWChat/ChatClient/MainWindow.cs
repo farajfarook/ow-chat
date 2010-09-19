@@ -71,9 +71,10 @@ namespace ChatClient
             }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void frmMainWindow_Load(object sender, EventArgs e)
         {
             this.Enabled = false;
+            OWChatSoundPlayer.loadSoundResources();
         }
 
 
