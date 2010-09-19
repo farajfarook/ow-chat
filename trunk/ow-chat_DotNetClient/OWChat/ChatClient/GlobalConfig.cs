@@ -50,6 +50,12 @@ namespace ChatClient
 
         }
 
+        public static void showErrorMessage(String message)
+        {
+            System.Windows.Forms.MessageBox.Show(message, "ow-chat", 
+                System.Windows.Forms.MessageBoxButtons.OK, 
+                System.Windows.Forms.MessageBoxIcon.Error);
+        }
 
 
 

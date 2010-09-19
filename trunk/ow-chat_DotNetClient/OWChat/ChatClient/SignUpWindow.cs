@@ -74,6 +74,7 @@ namespace ChatClient
                         GlobalConfig.UserSignedIn = true;
                         GlobalConfig.mainWindow.Enabled = true;
                         GlobalConfig.mainWindow.Focus();
+                        GlobalConfig.mainWindow.initializeMainChatWindow();
                         this.Dispose();
                     }
 

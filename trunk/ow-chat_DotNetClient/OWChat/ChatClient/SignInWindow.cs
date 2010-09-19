@@ -54,7 +54,7 @@ namespace ChatClient
                         GlobalConfig.DisplayName = tbUserID.Text;
                         GlobalConfig.UserSignedIn = true;
                         GlobalConfig.mainWindow.Enabled = true;
-                        GlobalConfig.mainWindow.loadFriendsList();
+                        GlobalConfig.mainWindow.initializeMainChatWindow();
                         this.Dispose();
                     }
 
