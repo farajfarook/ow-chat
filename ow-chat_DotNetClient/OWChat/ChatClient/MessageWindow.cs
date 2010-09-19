@@ -21,7 +21,9 @@ namespace ChatClient
         private Font selectedFont;
         public bool frn, msg;
 
-        private Thread senderThread = null;
+        private Queue<String> messageQueue = new Queue<string>();
+        
+
 
         // Constructor is modified******
         // When creating an instance from this class, it is a must to give a name of the person
@@ -44,10 +46,7 @@ namespace ChatClient
         {
             if (sendMsgRtb.Text.Trim().Length > 0 || sendMsgRtb.Rtf.Trim().Length > 130)
             {
-                senderThread = new Thread(new ThreadStart(runSendMessage));
-                senderThread.IsBackground = true;
-                senderThread.Start();
-
+                messageQueue.Enqueue(sendMsgRtb.Rtf);
                 messageRtb.SelectedText = GlobalConfig.DisplayName + ": ";
                 messageRtb.SelectedRtf = sendMsgRtb.Rtf;
                 messageRtb.ScrollToCaret();
@@ -56,27 +55,13 @@ namespace ChatClient
             }
          }
 
-        private void runSendMessage()
-        {
-            try
-            {
-                bool result, gotRes;
-                GlobalConfig.ChatService.sendMessage(sFriendName, sendMsgRtb.Rtf, GlobalConfig.SessionKey, out result, out gotRes);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error in sending chat message : " + ex.Message);
-            }
-        }
-
         private void MessageFrm_Load(object sender, EventArgs e)
         {
             panelEmoticons.Visible = false;
             sendMsgRtb.Focus();
+            //tmrSend.Start();
+            bgwSender.RunWorkerAsync();
         }
-
-       
-
 
 
 #region Emoticons Section
@@ -187,11 +172,6 @@ namespace ChatClient
             selectedFont.Dispose();
         }
 
-
-
-        // if the time is for receiving msgs, u dont have to use it here. 
-        // Main window will call this method once it has a message for this chat window
-
         public void receiveMessage(String message)
         {
             //you got a chat message from the other end..
@@ -216,10 +196,13 @@ namespace ChatClient
 
         private void sendMsgRtb_KeyDown(object sender, KeyEventArgs e)
         {
-            if (sendMsgRtb.Text.Trim()=="")
+            if (sendMsgRtb.Text.Trim() == "")
                 return;
             if (e.KeyCode == Keys.Return)
-                sendBtn_Click(null,null);
+            {
+                e.Handled = true;
+                sendBtn_Click(null, null);
+            }
 
         }
 
@@ -275,6 +258,31 @@ namespace ChatClient
             receiveMessage("Dumy Message Received");
         }
 
+        private void bgwSender_DoWork(object sender, DoWorkEventArgs e)
+        {
+            bool result, gotRes;
+            while (true)
+            {
+                try
+                {
+                    if (messageQueue.Count != 0)
+                    {
+                        GlobalConfig.ChatService.sendMessage(sFriendName, messageQueue.Dequeue(), GlobalConfig.SessionKey, out result, out gotRes);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error in sending chat message : " + ex.Message,"ow-chat",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                }
+
+            }
+                
+        }
+
+        private void frmMessageWindow_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            bgwSender.CancelAsync();
+        }
             
     }
 }

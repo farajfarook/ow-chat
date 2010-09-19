@@ -51,6 +51,7 @@
             this.Profile = new System.Windows.Forms.Button();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.button1 = new System.Windows.Forms.Button();
+            this.bgwSender = new System.ComponentModel.BackgroundWorker();
             this.panelEmoticons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -80,6 +81,7 @@
             this.sendMsgRtb.Size = new System.Drawing.Size(415, 31);
             this.sendMsgRtb.TabIndex = 1;
             this.sendMsgRtb.Text = "";
+            this.sendMsgRtb.WordWrap = false;
             this.sendMsgRtb.KeyDown += new System.Windows.Forms.KeyEventHandler(this.sendMsgRtb_KeyDown);
             // 
             // sendBtn
@@ -278,6 +280,11 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // bgwSender
+            // 
+            this.bgwSender.WorkerSupportsCancellation = true;
+            this.bgwSender.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgwSender_DoWork);
+            // 
             // frmMessageWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -299,6 +306,7 @@
             this.Name = "frmMessageWindow";
             this.Text = "Conversation";
             this.Load += new System.EventHandler(this.MessageFrm_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmMessageWindow_FormClosed);
             this.panelEmoticons.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -328,5 +336,6 @@
         private System.Windows.Forms.Button Profile;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.Button button1;
+        private System.ComponentModel.BackgroundWorker bgwSender;
     }
 }
