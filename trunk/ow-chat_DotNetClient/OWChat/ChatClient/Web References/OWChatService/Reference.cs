@@ -51,6 +51,8 @@ namespace ChatClient.OWChatService {
         
         private System.Threading.SendOrPostCallback removeFromFriendsOperationCompleted;
         
+        private System.Threading.SendOrPostCallback searchUserOperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
@@ -121,6 +123,9 @@ namespace ChatClient.OWChatService {
         
         /// <remarks/>
         public event removeFromFriendsCompletedEventHandler removeFromFriendsCompleted;
+        
+        /// <remarks/>
+        public event searchUserCompletedEventHandler searchUserCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", RequestNamespace="http://source.owchat/", ResponseNamespace="http://source.owchat/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -457,6 +462,36 @@ namespace ChatClient.OWChatService {
             if ((this.removeFromFriendsCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.removeFromFriendsCompleted(this, new removeFromFriendsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("", RequestNamespace="http://source.owchat/", ResponseNamespace="http://source.owchat/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        [return: System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable=true)]
+        public string[] searchUser([System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)] string searchContent) {
+            object[] results = this.Invoke("searchUser", new object[] {
+                        searchContent});
+            return ((string[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void searchUserAsync(string searchContent) {
+            this.searchUserAsync(searchContent, null);
+        }
+        
+        /// <remarks/>
+        public void searchUserAsync(string searchContent, object userState) {
+            if ((this.searchUserOperationCompleted == null)) {
+                this.searchUserOperationCompleted = new System.Threading.SendOrPostCallback(this.OnsearchUserOperationCompleted);
+            }
+            this.InvokeAsync("searchUser", new object[] {
+                        searchContent}, this.searchUserOperationCompleted, userState);
+        }
+        
+        private void OnsearchUserOperationCompleted(object arg) {
+            if ((this.searchUserCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.searchUserCompleted(this, new searchUserCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -865,6 +900,32 @@ namespace ChatClient.OWChatService {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((bool)(this.results[1]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.3053")]
+    public delegate void searchUserCompletedEventHandler(object sender, searchUserCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.3053")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class searchUserCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal searchUserCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public string[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((string[])(this.results[0]));
             }
         }
     }
