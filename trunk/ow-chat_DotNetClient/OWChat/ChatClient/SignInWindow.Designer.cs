@@ -48,7 +48,7 @@
             this.userIdLbl.AutoSize = true;
             this.userIdLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.userIdLbl.ForeColor = System.Drawing.Color.DarkSlateBlue;
-            this.userIdLbl.Location = new System.Drawing.Point(112, 77);
+            this.userIdLbl.Location = new System.Drawing.Point(112, 75);
             this.userIdLbl.Name = "userIdLbl";
             this.userIdLbl.Size = new System.Drawing.Size(80, 15);
             this.userIdLbl.TabIndex = 0;
@@ -164,6 +164,7 @@
             this.Controls.Add(this.tbUserID);
             this.Controls.Add(this.passwordLbl);
             this.Controls.Add(this.userIdLbl);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
