@@ -29,9 +29,11 @@ namespace ChatClient
             try
             {
                 String[] users = GlobalConfig.ChatService.searchUser(tbFriendName.Text);
+                if (users == null)
+                    return;
                 foreach (String name in users)
                 {
-                    lbUsers.Items.Add(name);
+                    lbUsers.Items.Add(name.Split(new char[]{' '})[0]);
                 }
             }
             catch (Exception ex)
@@ -94,6 +96,8 @@ namespace ChatClient
 
         private void lbUsers_MouseDown(object sender, MouseEventArgs e)
         {
+            if (lbUsers.SelectedIndex == -1)
+                return;
             tbFriendName.Text = lbUsers.Items[lbUsers.SelectedIndex].ToString();
         }
     }

@@ -11,14 +11,17 @@
   <message name="sendMessageResponse">
     <part name="parameters" element="tns:sendMessageResponse" />
   </message>
-  <message name="OWChatException">
-    <part name="fault" element="tns:OWChatException" />
+  <message name="Exception">
+    <part name="fault" element="tns:Exception" />
   </message>
   <message name="registerUser">
     <part name="parameters" element="tns:registerUser" />
   </message>
   <message name="registerUserResponse">
     <part name="parameters" element="tns:registerUserResponse" />
+  </message>
+  <message name="OWChatException">
+    <part name="fault" element="tns:OWChatException" />
   </message>
   <message name="signIn">
     <part name="parameters" element="tns:signIn" />
@@ -74,11 +77,17 @@
   <message name="removeFromFriendsResponse">
     <part name="parameters" element="tns:removeFromFriendsResponse" />
   </message>
+  <message name="searchUser">
+    <part name="parameters" element="tns:searchUser" />
+  </message>
+  <message name="searchUserResponse">
+    <part name="parameters" element="tns:searchUserResponse" />
+  </message>
   <portType name="OWChat">
     <operation name="sendMessage">
       <input wsam:Action="http://source.owchat/OWChat/sendMessageRequest" message="tns:sendMessage" />
       <output wsam:Action="http://source.owchat/OWChat/sendMessageResponse" message="tns:sendMessageResponse" />
-      <fault wsam:Action="http://source.owchat/OWChat/sendMessage/Fault/OWChatException" name="OWChatException" message="tns:OWChatException" />
+      <fault wsam:Action="http://source.owchat/OWChat/sendMessage/Fault/Exception" name="Exception" message="tns:Exception" />
     </operation>
     <operation name="registerUser">
       <input wsam:Action="http://source.owchat/OWChat/registerUserRequest" message="tns:registerUser" />
@@ -128,6 +137,11 @@
       <output wsam:Action="http://source.owchat/OWChat/removeFromFriendsResponse" message="tns:removeFromFriendsResponse" />
       <fault wsam:Action="http://source.owchat/OWChat/removeFromFriends/Fault/OWChatException" name="OWChatException" message="tns:OWChatException" />
     </operation>
+    <operation name="searchUser">
+      <input wsam:Action="http://source.owchat/OWChat/searchUserRequest" message="tns:searchUser" />
+      <output wsam:Action="http://source.owchat/OWChat/searchUserResponse" message="tns:searchUserResponse" />
+      <fault wsam:Action="http://source.owchat/OWChat/searchUser/Fault/OWChatException" name="OWChatException" message="tns:OWChatException" />
+    </operation>
   </portType>
   <binding name="OWChatPortBinding" type="tns:OWChat">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -139,8 +153,8 @@
       <output>
         <soap:body use="literal" />
       </output>
-      <fault name="OWChatException">
-        <soap:fault use="literal" name="OWChatException" namespace="" />
+      <fault name="Exception">
+        <soap:fault use="literal" name="Exception" namespace="" />
       </fault>
     </operation>
     <operation name="registerUser">
@@ -246,6 +260,18 @@
       </fault>
     </operation>
     <operation name="removeFromFriends">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="OWChatException">
+        <soap:fault use="literal" name="OWChatException" namespace="" />
+      </fault>
+    </operation>
+    <operation name="searchUser">
       <soap:operation soapAction="" />
       <input>
         <soap:body use="literal" />

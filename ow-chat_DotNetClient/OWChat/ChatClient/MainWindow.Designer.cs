@@ -31,9 +31,9 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMainWindow));
             this.lvFriends = new System.Windows.Forms.ListView();
+            this.contextMenuStripMain = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.removeFriendToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imageListSmall = new System.Windows.Forms.ImageList(this.components);
-            this.tmrReceiver = new System.Windows.Forms.Timer(this.components);
-            this.bgwMessageListener = new System.ComponentModel.BackgroundWorker();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnSignOut = new System.Windows.Forms.Button();
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
@@ -41,10 +41,8 @@
             this.signOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.friendsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addFriendToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuStripMain = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.removeFriendToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuStripMain.SuspendLayout();
             this.contextMenuStripMain.SuspendLayout();
+            this.menuStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // lvFriends
@@ -63,7 +61,20 @@
             this.lvFriends.UseCompatibleStateImageBehavior = false;
             this.lvFriends.View = System.Windows.Forms.View.List;
             this.lvFriends.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvFriends_MouseDoubleClick);
-            this.lvFriends.SelectedIndexChanged += new System.EventHandler(this.lvFriends_SelectedIndexChanged);
+            // 
+            // contextMenuStripMain
+            // 
+            this.contextMenuStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.removeFriendToolStripMenuItem});
+            this.contextMenuStripMain.Name = "contextMenuStripMain";
+            this.contextMenuStripMain.Size = new System.Drawing.Size(147, 26);
+            // 
+            // removeFriendToolStripMenuItem
+            // 
+            this.removeFriendToolStripMenuItem.Name = "removeFriendToolStripMenuItem";
+            this.removeFriendToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.removeFriendToolStripMenuItem.Text = "Remove Friend";
+            this.removeFriendToolStripMenuItem.Click += new System.EventHandler(this.removeFriendToolStripMenuItem_Click);
             // 
             // imageListSmall
             // 
@@ -74,15 +85,6 @@
             this.imageListSmall.Images.SetKeyName(2, "out.JPG");
             this.imageListSmall.Images.SetKeyName(3, "buddy.JPG");
             this.imageListSmall.Images.SetKeyName(4, "buddy_offline.jpg");
-            // 
-            // tmrReceiver
-            // 
-            this.tmrReceiver.Interval = 2000;
-            this.tmrReceiver.Tick += new System.EventHandler(this.tmrReceiver_Tick);
-            // 
-            // bgwMessageListener
-            // 
-            this.bgwMessageListener.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgwMessageListener_DoWork);
             // 
             // btnAdd
             // 
@@ -143,23 +145,9 @@
             // addFriendToolStripMenuItem
             // 
             this.addFriendToolStripMenuItem.Name = "addFriendToolStripMenuItem";
-            this.addFriendToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.addFriendToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.addFriendToolStripMenuItem.Text = "Add Friend";
             this.addFriendToolStripMenuItem.Click += new System.EventHandler(this.addFriendToolStripMenuItem_Click);
-            // 
-            // contextMenuStripMain
-            // 
-            this.contextMenuStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.removeFriendToolStripMenuItem});
-            this.contextMenuStripMain.Name = "contextMenuStripMain";
-            this.contextMenuStripMain.Size = new System.Drawing.Size(153, 48);
-            // 
-            // removeFriendToolStripMenuItem
-            // 
-            this.removeFriendToolStripMenuItem.Name = "removeFriendToolStripMenuItem";
-            this.removeFriendToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.removeFriendToolStripMenuItem.Text = "Remove Friend";
-            this.removeFriendToolStripMenuItem.Click += new System.EventHandler(this.removeFriendToolStripMenuItem_Click);
             // 
             // frmMainWindow
             // 
@@ -178,9 +166,9 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Shown += new System.EventHandler(this.frmMainWindow_Shown);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMainWindow_FormClosing);
+            this.contextMenuStripMain.ResumeLayout(false);
             this.menuStripMain.ResumeLayout(false);
             this.menuStripMain.PerformLayout();
-            this.contextMenuStripMain.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -189,8 +177,6 @@
         #endregion
 
         private System.Windows.Forms.ListView lvFriends;
-        private System.Windows.Forms.Timer tmrReceiver;
-        private System.ComponentModel.BackgroundWorker bgwMessageListener;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnSignOut;
         private System.Windows.Forms.ImageList imageListSmall;

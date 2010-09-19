@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://source.owchat/" targetNamespace="http://source.owchat/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Exception" type="tns:Exception" />
   <xs:element name="OWChatException" type="tns:OWChatException" />
   <xs:element name="addAsFriend" type="tns:addAsFriend" />
   <xs:element name="addAsFriendResponse" type="tns:addAsFriendResponse" />
@@ -15,6 +16,8 @@
   <xs:element name="removeFromFriendsResponse" type="tns:removeFromFriendsResponse" />
   <xs:element name="resetChatServer" type="tns:resetChatServer" />
   <xs:element name="resetChatServerResponse" type="tns:resetChatServerResponse" />
+  <xs:element name="searchUser" type="tns:searchUser" />
+  <xs:element name="searchUserResponse" type="tns:searchUserResponse" />
   <xs:element name="sendMessage" type="tns:sendMessage" />
   <xs:element name="sendMessageResponse" type="tns:sendMessageResponse" />
   <xs:element name="signIn" type="tns:signIn" />
@@ -96,6 +99,11 @@
       <xs:element minOccurs="0" name="return" type="xs:boolean" />
     </xs:sequence>
   </xs:complexType>
+  <xs:complexType name="Exception">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
   <xs:complexType name="addAsFriend">
     <xs:sequence>
       <xs:element minOccurs="0" name="friendName" type="xs:string" />
@@ -145,6 +153,16 @@
   <xs:complexType name="registerUserResponse">
     <xs:sequence>
       <xs:element minOccurs="0" name="return" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="searchUser">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="searchContent" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="searchUserResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="return" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
 </xs:schema>
