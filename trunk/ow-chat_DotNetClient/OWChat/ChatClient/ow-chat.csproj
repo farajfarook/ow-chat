@@ -137,6 +137,7 @@
     <Compile Include="SignUpWindow.Designer.cs">
       <DependentUpon>SignUpWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="SoundPlayer.cs" />
     <Compile Include="Web References\OWChatService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
